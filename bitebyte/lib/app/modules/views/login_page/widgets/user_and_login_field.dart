@@ -1,6 +1,8 @@
+import 'package:bitebyte/app/modules/views/login_page/controller/login_controller.dart';
 import 'package:bitebyte/app/modules/views/login_page/widgets/link_label.dart';
 import 'package:bitebyte/widgtes/default_text_form_field/default_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class UserAndLoginField extends StatefulWidget {
   const UserAndLoginField({super.key});
@@ -10,7 +12,7 @@ class UserAndLoginField extends StatefulWidget {
 }
 
 class _UserAndLoginFieldState extends State<UserAndLoginField> {
-  late final controller;
+  final controller = Modular.get<LoginController>();
 
   @override
   Widget build(BuildContext context) {
