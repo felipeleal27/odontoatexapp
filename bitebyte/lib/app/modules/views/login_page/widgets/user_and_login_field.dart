@@ -1,5 +1,4 @@
-import 'package:bitebyte/app/modules/login_page/controller/login_controller.dart';
-import 'package:bitebyte/app/modules/login_page/widgets/link_label.dart';
+import 'package:bitebyte/app/modules/views/login_page/widgets/link_label.dart';
 import 'package:bitebyte/widgtes/default_text_form_field/default_text_form_field.dart';
 import 'package:flutter/material.dart';
 

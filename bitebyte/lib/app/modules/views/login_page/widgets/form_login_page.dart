@@ -1,4 +1,4 @@
-import 'package:bitebyte/app/modules/login_page/widgets/user_and_login_field.dart';
+import 'package:bitebyte/app/modules/views/login_page/widgets/user_and_login_field.dart';
 import 'package:flutter/material.dart';
 
 class FormLoginPage extends StatefulWidget {
