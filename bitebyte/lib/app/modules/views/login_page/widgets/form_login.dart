@@ -1,26 +1,28 @@
+import 'package:bitebyte/app/core/ui/widgtes/container_default_button.dart';
 import 'package:bitebyte/app/modules/views/login_page/controller/login_controller.dart';
 import 'package:bitebyte/app/modules/views/login_page/widgets/link_label.dart';
 import 'package:bitebyte/widgtes/default_text_form_field/default_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class UserAndLoginField extends StatefulWidget {
-  const UserAndLoginField({super.key});
+class FormLogin extends StatefulWidget {
+  const FormLogin({super.key});
 
   @override
-  State<UserAndLoginField> createState() => _UserAndLoginFieldState();
+  State<FormLogin> createState() => _FormLoginState();
 }
 
-class _UserAndLoginFieldState extends State<UserAndLoginField> {
+class _FormLoginState extends State<FormLogin> {
   final controller = Modular.get<LoginController>();
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Observer(
       builder: (_) {
         return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DefaultTextFormField(
               labelText: 'Usuário',
@@ -29,7 +31,7 @@ class _UserAndLoginFieldState extends State<UserAndLoginField> {
               prefixIconColor: Colors.blueGrey,
               onChanged: (value) => controller.userName = value,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: size.height.h / 40),
             DefaultTextFormField(
               labelText: 'Senha',
               hintText: 'Digite sua senha',
@@ -48,14 +50,21 @@ class _UserAndLoginFieldState extends State<UserAndLoginField> {
                 ),
               ),
               obscureText: controller.isObscure,
+              clickButton: () => controller
+                  .login(), // passar a função que quer que faça ao clicar "ok" no teclado
             ),
-            const SizedBox(height: 15),
+            SizedBox(height: size.height.h / 100),
             LinkLabel(
               text: 'Esqueci minha senha',
               onPressed: () {},
               textColor: const Color.fromARGB(255, 33, 222, 243),
             ),
-            const SizedBox(height: 5),
+            SizedBox(height: size.height.h / 22),
+            ContainerDefaultButton(
+              text: 'Entrar',
+              onTap: () => controller.login(),
+              circularProgressIndicator: controller.isLoading,
+            ),
           ],
         );
       },

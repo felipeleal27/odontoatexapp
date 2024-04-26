@@ -8,9 +8,10 @@ class DefaultTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final IconData? prefixIconData;
-  final Color? prefixIconColor; // Adiciona o parâmetro de cor do prefixIcon
+  final Color? prefixIconColor;
   final IconButton? suffixIconButton;
   final Function(String)? onChanged;
+  final Function()? clickButton;
 
   const DefaultTextFormField({
     Key? key,
@@ -21,9 +22,10 @@ class DefaultTextFormField extends StatelessWidget {
     this.keyboardType,
     this.obscureText = false,
     this.prefixIconData,
-    this.prefixIconColor, // Inclui o parâmetro de cor do prefixIcon
+    this.prefixIconColor,
     this.suffixIconButton,
     this.onChanged,
+    this.clickButton,
   }) : super(key: key);
 
   @override
@@ -37,7 +39,7 @@ class DefaultTextFormField extends StatelessWidget {
             color: Colors.grey,
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: Offset(0, 3),
           ),
         ],
       ),
@@ -47,6 +49,12 @@ class DefaultTextFormField extends StatelessWidget {
         validator: validator,
         keyboardType: keyboardType,
         obscureText: obscureText,
+        onFieldSubmitted: (value) {
+          FocusScope.of(context).requestFocus(FocusNode());
+          if (clickButton != null) {
+            clickButton!();
+          }
+        },
         decoration: InputDecoration(
           hintText: hintText,
           labelText: labelText,
@@ -58,7 +66,7 @@ class DefaultTextFormField extends StatelessWidget {
                     children: [
                       Icon(
                         prefixIconData,
-                        color: prefixIconColor, // Define a cor do prefixIcon
+                        color: prefixIconColor,
                       ),
                       const SizedBox(width: 8.0),
                       const VerticalDivider(
