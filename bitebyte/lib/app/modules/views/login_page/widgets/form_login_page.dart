@@ -1,6 +1,6 @@
 import 'package:bitebyte/app/modules/views/login_page/controller/login_controller.dart';
 import 'package:bitebyte/app/modules/views/login_page/widgets/link_label.dart';
-import 'package:bitebyte/widgtes/default_text_form_field/default_text_form_field.dart';
+import 'package:bitebyte/app/core/ui/widgtes/default_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -79,7 +79,7 @@ class _FormLoginPageState extends State<FormLoginPage> {
           onPressed: () {
             controller.login();
           },
-          child: Text('ENTRAR'),
+          child: const Text('ENTRAR'),
         ),
         // const SizedBox(height: 20),
       ],

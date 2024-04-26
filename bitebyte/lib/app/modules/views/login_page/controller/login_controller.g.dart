@@ -73,6 +73,46 @@ mixin _$LoginController on LoginControllerBase, Store {
     });
   }
 
+  late final _$savePasswordAtom =
+      Atom(name: 'LoginControllerBase.savePassword', context: context);
+
+  @override
+  bool get savePassword {
+    _$savePasswordAtom.reportRead();
+    return super.savePassword;
+  }
+
+  @override
+  set savePassword(bool value) {
+    _$savePasswordAtom.reportWrite(value, super.savePassword, () {
+      super.savePassword = value;
+    });
+  }
+
+  late final _$isLoggedAtom =
+      Atom(name: 'LoginControllerBase.isLogged', context: context);
+
+  @override
+  bool get isLogged {
+    _$isLoggedAtom.reportRead();
+    return super.isLogged;
+  }
+
+  @override
+  set isLogged(bool value) {
+    _$isLoggedAtom.reportWrite(value, super.isLogged, () {
+      super.isLogged = value;
+    });
+  }
+
+  late final _$loginAsyncAction =
+      AsyncAction('LoginControllerBase.login', context: context);
+
+  @override
+  Future<void> login() {
+    return _$loginAsyncAction.run(() => super.login());
+  }
+
   late final _$LoginControllerBaseActionController =
       ActionController(name: 'LoginControllerBase', context: context);
 
@@ -88,12 +128,25 @@ mixin _$LoginController on LoginControllerBase, Store {
   }
 
   @override
+  void changeSavePassword() {
+    final _$actionInfo = _$LoginControllerBaseActionController.startAction(
+        name: 'LoginControllerBase.changeSavePassword');
+    try {
+      return super.changeSavePassword();
+    } finally {
+      _$LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isObscure: ${isObscure},
 userName: ${userName},
 password: ${password},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+savePassword: ${savePassword},
+isLogged: ${isLogged}
     ''';
   }
 }

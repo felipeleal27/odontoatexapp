@@ -1,7 +1,7 @@
 import 'package:bitebyte/app/core/ui/widgtes/container_default_button.dart';
 import 'package:bitebyte/app/modules/views/login_page/controller/login_controller.dart';
 import 'package:bitebyte/app/modules/views/login_page/widgets/link_label.dart';
-import 'package:bitebyte/widgtes/default_text_form_field/default_text_form_field.dart';
+import 'package:bitebyte/app/core/ui/widgtes/default_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -54,15 +54,35 @@ class _FormLoginState extends State<FormLogin> {
                   .login(), // passar a função que quer que faça ao clicar "ok" no teclado
             ),
             SizedBox(height: size.height.h / 100),
-            LinkLabel(
-              text: 'Esqueci minha senha',
-              onPressed: () {},
-              textColor: const Color.fromARGB(255, 33, 222, 243),
+            Row(
+              children: [
+                Observer(
+                  builder: (_) {
+                    return Checkbox(
+                        value: controller.savePassword,
+                        onChanged: (_) {
+                          controller.changeSavePassword();
+                        });
+                  },
+                ),
+                Text('Lembrar senha', style: TextStyle(fontSize: 12.sp)),
+                const Spacer(),
+                LinkLabel(
+                  text: 'Esqueci minha senha',
+                  onPressed: () {},
+                  textColor: const Color.fromARGB(255, 0, 81, 187),
+                  fontSize: 13.sp,
+                  // textColor: const Color.fromARGB(255, 33, 222, 243),
+                ),
+              ],
             ),
-            SizedBox(height: size.height.h / 22),
+            SizedBox(height: size.height.h / 20),
             ContainerDefaultButton(
               text: 'Entrar',
-              onTap: () => controller.login(),
+              onTap: () {
+                FocusScope.of(context).unfocus();
+                controller.login();
+              },
               circularProgressIndicator: controller.isLoading,
             ),
           ],

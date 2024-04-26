@@ -4,12 +4,14 @@ class LinkLabel extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final Color? textColor;
+  final double? fontSize;
 
   const LinkLabel({
     Key? key,
     required this.text,
     this.onPressed,
     this.textColor,
+    this.fontSize,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class LinkLabel extends StatelessWidget {
           color: onPressed != null
               ? (textColor ?? const Color.fromARGB(255, 33, 222, 243))
               : (textColor ?? const Color.fromARGB(255, 33, 222, 243)),
-          fontSize: 16, // Tamanho da fonte
+          fontSize: fontSize ?? 13, // Tamanho da fonte
           letterSpacing: 0.5, // Espaçamento entre as letras
           decorationColor: textColor ??
               const Color.fromARGB(

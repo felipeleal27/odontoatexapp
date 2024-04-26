@@ -10,6 +10,46 @@ part of 'animation_controller.dart';
 
 mixin _$AnimatedInitialPageController
     on AnimatedInitialPageControllerBase, Store {
+  late final _$userAtom =
+      Atom(name: 'AnimatedInitialPageControllerBase.user', context: context);
+
+  @override
+  String? get user {
+    _$userAtom.reportRead();
+    return super.user;
+  }
+
+  @override
+  set user(String? value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
+    });
+  }
+
+  late final _$loggedAtom =
+      Atom(name: 'AnimatedInitialPageControllerBase.logged', context: context);
+
+  @override
+  bool get logged {
+    _$loggedAtom.reportRead();
+    return super.logged;
+  }
+
+  @override
+  set logged(bool value) {
+    _$loggedAtom.reportWrite(value, super.logged, () {
+      super.logged = value;
+    });
+  }
+
+  late final _$loginAsyncAction =
+      AsyncAction('AnimatedInitialPageControllerBase.login', context: context);
+
+  @override
+  Future<bool> login() {
+    return _$loginAsyncAction.run(() => super.login());
+  }
+
   late final _$animatedInitialPageAsyncAction = AsyncAction(
       'AnimatedInitialPageControllerBase.animatedInitialPage',
       context: context);
@@ -23,7 +63,8 @@ mixin _$AnimatedInitialPageController
   @override
   String toString() {
     return '''
-
+user: ${user},
+logged: ${logged}
     ''';
   }
 }
