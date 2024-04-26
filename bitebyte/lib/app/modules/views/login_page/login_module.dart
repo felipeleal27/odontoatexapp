@@ -1,5 +1,3 @@
-
-
 import 'package:bitebyte/app/modules/views/login_page/controller/login_controller.dart';
 import 'package:bitebyte/app/modules/views/login_page/login_nome_rota.dart';
 import 'package:bitebyte/app/modules/views/login_page/page/login_page.dart';
@@ -9,18 +7,13 @@ class LoginModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.singleton(
-          (i) => LoginController(
-            loginRepository: i(),
-            localStorage: i(),
-          ),
+          (i) => LoginController(loginRepository: i()),
         )
       ];
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute(
-          LoginNomeRotas.login,
-          child: (context, args) => const LoginPage(),
-        ),
+        ChildRoute(LoginNomeRotas.login,
+            child: (context, args) => const LoginPage()),
       ];
 }
