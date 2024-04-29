@@ -22,7 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
     controller.logged = await controller.login();
     Future.delayed(const Duration(seconds: 5), () {
       if (controller.logged) {
-        Modular.to.navigate('${HomeNomeRotas.modulo}${HomeNomeRotas.home}');
+        Modular.to.navigate(
+            '${HomeNomeRotas.modulo}${HomeNomeRotas.inicialProdutor}');
       } else {
         Modular.to.navigate('${LoginNomeRotas.modulo}${LoginNomeRotas.login}');
       }

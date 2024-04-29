@@ -1,6 +1,8 @@
 import 'package:bitebyte/app/core/local_storage/local_storage.dart';
 import 'package:bitebyte/app/core/ui/widgtes/messages.dart';
+import 'package:bitebyte/app/modules/views/home/home_nome_rotas.dart';
 import 'package:bitebyte/app/repository/login/login_repository.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 part 'login_controller.g.dart';
 
@@ -29,23 +31,25 @@ abstract class LoginControllerBase with Store {
   bool isLoading = false;
 
   @observable
-  bool savePassword = false;
+  bool savePassword = true;
 
   @observable
   var isLogged = false;
 
   @action
-  void changeObscure() {
-    isObscure = !isObscure;
-  }
+  void changeObscure() => isObscure = !isObscure;
 
   @action
   Future<void> login() async {
     isLoading = true;
     final response = await _loginRepository.login(userName, password);
-    await _localStorage.write<String>('user', [userName, password].join('/'));
+    if (savePassword) {
+      await _localStorage.write<String>('user', [userName, password].join('/'));
+    }
     isLoading = false;
     if (response) {
+      Modular.to
+          .navigate('${HomeNomeRotas.modulo}${HomeNomeRotas.inicialProdutor}');
       Messages.success('Login realizado com sucesso!');
     } else {
       Messages.alert('Erro ao realizar login');
@@ -53,7 +57,5 @@ abstract class LoginControllerBase with Store {
   }
 
   @action
-  void changeSavePassword() {
-    savePassword = !savePassword;
-  }
+  void changeSavePassword() => savePassword = !savePassword;
 }

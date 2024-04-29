@@ -26,7 +26,7 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute(AnimatedInitialNomeRotas.modulo,
         module: AnimationInitialModule()),
-    ModuleRoute(LoginNomeRotas.modulo, module: LoginModule()),
     ModuleRoute(HomeNomeRotas.modulo, module: HomeModule()),
+    ModuleRoute(LoginNomeRotas.modulo, module: LoginModule()),
   ];
 }

@@ -1,5 +1,6 @@
 import 'package:bitebyte/app/core/local_storage/local_storage.dart';
 import 'package:bitebyte/app/core/rest_client/rest_client.dart';
+import 'package:bitebyte/app/core/rest_client/rest_client_exception.dart';
 import 'package:bitebyte/app/repository/login/login_repository.dart';
 import 'package:flutter/foundation.dart';
 
@@ -27,7 +28,7 @@ class LoginRepositoryImpl extends LoginRepository {
       } else {
         return false;
       }
-    } catch (e) {
+    } on RestClienteException catch (e) {
       if (kDebugMode) {
         print('Erro ao realizar login: $e');
       }
