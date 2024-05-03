@@ -26,7 +26,17 @@ abstract class HomeControllerBase with Store {
   bool isProcedimentoChecked = false;
 
   @action
-  void setIsChecked(bool value, bool isChecked) => isDataChecked = value;
+  void setIsDataChecked(bool value) => isDataChecked = value;
+
+  @action
+  void setIsProfessorChecked(bool value) => isProfessorChecked = value;
+
+  @action
+  void setIsProcedimentoChecked(bool value) => isProcedimentoChecked = value;
+
+  @computed
+  bool get isCheckedAll =>
+      isDataChecked && isProfessorChecked && isProcedimentoChecked;
 
   void clearLocalStorage() => _localStorage.clear();
 

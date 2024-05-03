@@ -33,28 +33,46 @@ class _HomePageState extends State<HomePage> {
             Observer(
               builder: (_) {
                 return GestureDetector(
-                  child: DefaultTextFormField(
-                    labelText: 'Pesquisar',
-                    hintText: 'Pesquisar...',
-                    prefixIconData: Icons.search,
-                    controller: controller.clearText
-                        ? TextEditingController(text: '')
-                        : null,
-                    suffixIconButton: controller.search.isNotEmpty
-                        ? IconButton(
-                            onPressed: () {
-                              FocusScope.of(context).unfocus();
-                              controller.setSearch('');
-                              controller.clearSearch(true);
-                            },
-                            icon: const Icon(Icons.clear))
-                        : null,
-                    onChanged: (value) {
-                      controller.setSearch(value);
-                      controller.clearSearch(false);
-                    },
+                    child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 20)),
                   ),
-                );
+                  onPressed: () {
+                    filtrar(context);
+                  },
+                  child: const Text(
+                    'Filtrar',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                )
+                    // DefaultTextFormField(
+                    //   labelText: 'Pesquisar',
+                    //   hintText: 'Pesquisar...',
+                    //   prefixIconData: Icons.search,
+                    //   controller: controller.clearText
+                    //       ? TextEditingController(text: '')
+                    //       : null,
+                    //   suffixIconButton: controller.search.isNotEmpty
+                    //       ? IconButton(
+                    //           onPressed: () {
+                    //             FocusScope.of(context).unfocus();
+                    //             controller.setSearch('');
+                    //             controller.clearSearch(true);
+                    //           },
+                    //           icon: const Icon(Icons.clear))
+                    //       : null,
+                    //   onChanged: (value) {
+                    //     controller.setSearch(value);
+                    //     controller.clearSearch(false);
+                    //   },
+                    // ),
+                    );
               },
             ),
             Expanded(
@@ -81,31 +99,16 @@ class _HomePageState extends State<HomePage> {
 //APPBAR
   PreferredSize appBar(Size size) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(size.height * .2),
+      // preferredSize: Size.fromHeight(size.height * .2),
+      preferredSize: Size.fromHeight(size.height * .1),
       child: AppBar(
         toolbarHeight: size.height,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(50),
+            bottom: Radius.circular(20),
           ),
         ),
-        title: Column(
-          children: [
-            Container(
-              height: size.height * .12,
-              width: size.width * .25,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                image: const DecorationImage(
-                  image: AssetImage('assets/imagens/logoapp.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SizedBox(height: size.height.h / 50),
-            const Text('CONSULTAS'),
-          ],
-        ),
+        title: const Text('CONSULTAS'),
         centerTitle: true,
       ),
     );
@@ -202,7 +205,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context, setState) {
             return AlertDialog(
               title: const Text('Filtrar'),
-              content: Observer(builder: (context) {
+              content: Observer(builder: (_) {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -212,8 +215,7 @@ class _HomePageState extends State<HomePage> {
                       icon: Icons.calendar_month,
                       isSelected: controller.isDataChecked,
                       onChanged: (value) {
-                        controller.setIsChecked(
-                            value, controller.isDataChecked);
+                        controller.setIsDataChecked(value);
                       },
                     ),
                     DefaultRadioButton(
@@ -222,8 +224,7 @@ class _HomePageState extends State<HomePage> {
                       icon: Icons.person,
                       isSelected: controller.isProfessorChecked,
                       onChanged: (value) {
-                        controller.setIsChecked(
-                            value, controller.isProfessorChecked);
+                        controller.setIsProfessorChecked(value);
                       },
                     ),
                     DefaultRadioButton(
@@ -232,8 +233,7 @@ class _HomePageState extends State<HomePage> {
                       icon: Icons.medical_services_outlined,
                       isSelected: controller.isProcedimentoChecked,
                       onChanged: (value) {
-                        controller.setIsChecked(
-                            value, controller.isProcedimentoChecked);
+                        controller.setIsProcedimentoChecked(value);
                       },
                     ),
                   ],
@@ -245,6 +245,12 @@ class _HomePageState extends State<HomePage> {
                     Navigator.of(context).pop();
                   },
                   child: const Text('Fechar'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Filtrar'),
                 ),
               ],
             );
