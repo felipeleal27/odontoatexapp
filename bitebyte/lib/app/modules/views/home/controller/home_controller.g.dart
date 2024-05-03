@@ -98,6 +98,22 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$listFiltroAtom =
+      Atom(name: 'HomeControllerBase.listFiltro', context: context);
+
+  @override
+  List<String> get listFiltro {
+    _$listFiltroAtom.reportRead();
+    return super.listFiltro;
+  }
+
+  @override
+  set listFiltro(List<String> value) {
+    _$listFiltroAtom.reportWrite(value, super.listFiltro, () {
+      super.listFiltro = value;
+    });
+  }
+
   late final _$HomeControllerBaseActionController =
       ActionController(name: 'HomeControllerBase', context: context);
 
@@ -157,6 +173,17 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
+  void setListFiltro() {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.setListFiltro');
+    try {
+      return super.setListFiltro();
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 search: ${search},
@@ -164,6 +191,7 @@ clearText: ${clearText},
 isDataChecked: ${isDataChecked},
 isProfessorChecked: ${isProfessorChecked},
 isProcedimentoChecked: ${isProcedimentoChecked},
+listFiltro: ${listFiltro},
 isCheckedAll: ${isCheckedAll}
     ''';
   }

@@ -33,46 +33,46 @@ class _HomePageState extends State<HomePage> {
             Observer(
               builder: (_) {
                 return GestureDetector(
-                    child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                    padding: MaterialStateProperty.all(
-                        const EdgeInsets.symmetric(
-                            horizontal: 50, vertical: 20)),
-                  ),
-                  onPressed: () {
+                  onTap: () {
                     filtrar(context);
                   },
-                  child: const Text(
-                    'Filtrar',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+                  child: ListTile(
+                    title: Container(
+                      // height: size.height / 12,
+                      // width: size.width,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.0),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        leading: const Icon(Icons.filter_alt_outlined),
+                        title: Text(
+                          controller.listFiltro.isEmpty
+                              ? 'Filtrar'
+                              : 'Filtros:',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: controller.listFiltro.isNotEmpty
+                            ? Text(controller.listFiltro.join(' - '))
+                            : null,
+                      ),
                     ),
-                  ),
-                )
-                    // DefaultTextFormField(
-                    //   labelText: 'Pesquisar',
-                    //   hintText: 'Pesquisar...',
-                    //   prefixIconData: Icons.search,
-                    //   controller: controller.clearText
-                    //       ? TextEditingController(text: '')
-                    //       : null,
-                    //   suffixIconButton: controller.search.isNotEmpty
-                    //       ? IconButton(
-                    //           onPressed: () {
-                    //             FocusScope.of(context).unfocus();
-                    //             controller.setSearch('');
-                    //             controller.clearSearch(true);
-                    //           },
-                    //           icon: const Icon(Icons.clear))
-                    //       : null,
-                    //   onChanged: (value) {
-                    //     controller.setSearch(value);
-                    //     controller.clearSearch(false);
+                    // trailing: IconButton(
+                    //   icon: const Icon(Icons.filter_alt_outlined),
+                    //   onPressed: () {
+                    //     filtrar(context);
                     //   },
                     // ),
-                    );
+                  ),
+                );
               },
             ),
             Expanded(
@@ -248,6 +248,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 TextButton(
                   onPressed: () {
+                    controller.setListFiltro();
                     Navigator.of(context).pop();
                   },
                   child: const Text('Filtrar'),

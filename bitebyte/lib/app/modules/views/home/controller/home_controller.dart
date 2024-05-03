@@ -25,6 +25,9 @@ abstract class HomeControllerBase with Store {
   @observable
   bool isProcedimentoChecked = false;
 
+  @observable
+  List<String> listFiltro = ObservableList.of([]);
+
   @action
   void setIsDataChecked(bool value) => isDataChecked = value;
 
@@ -45,4 +48,22 @@ abstract class HomeControllerBase with Store {
 
   @action
   void clearSearch(bool value) => clearText = value;
+
+  @action
+  void setListFiltro() {
+    if (isCheckedAll) {
+      listFiltro = ['Data', 'Professor', 'Procedimento'];
+    } else {
+      listFiltro = [];
+      if (isDataChecked) {
+        listFiltro.add('Data');
+      }
+      if (isProfessorChecked) {
+        listFiltro.add('Professor');
+      }
+      if (isProcedimentoChecked) {
+        listFiltro.add('Procedimento');
+      }
+    }
+  }
 }
