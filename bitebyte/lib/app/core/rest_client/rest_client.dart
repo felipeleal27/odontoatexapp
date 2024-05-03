@@ -24,7 +24,7 @@ abstract class RestClient {
     Map<String, dynamic>? headers,
   });
 
-  Future<RestClientResponse<T>> detele<T>(
+  Future<RestClientResponse<T>> delete<T>(
     String path, {
     dynamic data,
     Map<String, dynamic>? query,
@@ -38,7 +38,7 @@ abstract class RestClient {
     Map<String, dynamic>? headers,
   });
 
-  Future<RestClientResponse<T>> resquest<T>(
+  Future<RestClientResponse<T>> request<T>(
     String path, {
     required String method,
     dynamic data,

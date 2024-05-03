@@ -1,3 +1,4 @@
+import 'package:bitebyte/app/core/ui/widgtes/default_redio_button.dart';
 import 'package:bitebyte/app/core/ui/widgtes/default_text_form_field.dart';
 import 'package:bitebyte/app/modules/views/home/controller/home_controller.dart';
 import 'package:bitebyte/app/modules/views/home/widgets/card_consultas.dart';
@@ -36,15 +37,22 @@ class _HomePageState extends State<HomePage> {
                     labelText: 'Pesquisar',
                     hintText: 'Pesquisar...',
                     prefixIconData: Icons.search,
-                    // controller: TextEditingController(text: controller.search),
+                    controller: controller.clearText
+                        ? TextEditingController(text: '')
+                        : null,
                     suffixIconButton: controller.search.isNotEmpty
                         ? IconButton(
                             onPressed: () {
-                              controller.searchClear();
+                              FocusScope.of(context).unfocus();
+                              controller.setSearch('');
+                              controller.clearSearch(true);
                             },
                             icon: const Icon(Icons.clear))
                         : null,
-                    onChanged: (value) => controller.setSearch(value),
+                    onChanged: (value) {
+                      controller.setSearch(value);
+                      controller.clearSearch(false);
+                    },
                   ),
                 );
               },
@@ -108,24 +116,69 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(),
-            child: Text(
-              'Menu',
-              style: TextStyle(
-                fontSize: 24,
-              ),
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage('assets/imagens/logoapp.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                const Text(
+                  'FELIPE LEAL',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: const Text('Página Inicial'),
+            title: const Text('Início'),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Perfil'),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(Icons.calendar_today),
+            title: const Text('Agenda'),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(Icons.notifications),
+            title: const Text('Notificações'),
             onTap: () {},
           ),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Configurações'),
             onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(Icons.filter_alt_outlined),
+            title: const Text('Filtrar'),
+            onTap: () {
+              Modular.to.pop();
+              filtrar(context);
+            },
           ),
           ListTile(
             leading: const Icon(Icons.logout),
@@ -138,6 +191,66 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+    );
+  }
+
+  void filtrar(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('Filtrar'),
+              content: Observer(builder: (context) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    DefaultRadioButton(
+                      title: 'Data',
+                      value: 'Option 1',
+                      icon: Icons.calendar_month,
+                      isSelected: controller.isDataChecked,
+                      onChanged: (value) {
+                        controller.setIsChecked(
+                            value, controller.isDataChecked);
+                      },
+                    ),
+                    DefaultRadioButton(
+                      title: 'Professor',
+                      value: 'Option 2',
+                      icon: Icons.person,
+                      isSelected: controller.isProfessorChecked,
+                      onChanged: (value) {
+                        controller.setIsChecked(
+                            value, controller.isProfessorChecked);
+                      },
+                    ),
+                    DefaultRadioButton(
+                      title: 'Procedimento',
+                      value: 'Option 3',
+                      icon: Icons.medical_services_outlined,
+                      isSelected: controller.isProcedimentoChecked,
+                      onChanged: (value) {
+                        controller.setIsChecked(
+                            value, controller.isProcedimentoChecked);
+                      },
+                    ),
+                  ],
+                );
+              }),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Fechar'),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

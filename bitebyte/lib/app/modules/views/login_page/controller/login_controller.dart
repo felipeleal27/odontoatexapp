@@ -31,7 +31,7 @@ abstract class LoginControllerBase with Store {
   bool isLoading = false;
 
   @observable
-  bool savePassword = true;
+  bool savePassword = false;
 
   @observable
   var isLogged = false;

@@ -41,7 +41,7 @@ class DioRestClient implements RestClient {
   }
 
   @override
-  Future<RestClientResponse<T>> detele<T>(String path,
+  Future<RestClientResponse<T>> delete<T>(String path,
       {data,
       Map<String, dynamic>? query,
       Map<String, dynamic>? headers}) async {
@@ -143,7 +143,7 @@ class DioRestClient implements RestClient {
   }
 
   @override
-  Future<RestClientResponse<T>> resquest<T>(String path,
+  Future<RestClientResponse<T>> request<T>(String path,
       {required String method,
       data,
       Map<String, dynamic>? query,

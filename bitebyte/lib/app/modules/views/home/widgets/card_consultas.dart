@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CardConsultas extends StatefulWidget {
   const CardConsultas({super.key});
@@ -8,6 +9,7 @@ class CardConsultas extends StatefulWidget {
 }
 
 class _CardConsultasState extends State<CardConsultas> {
+  var date = DateFormat("dd/MM/yyyy").format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,28 +20,40 @@ class _CardConsultasState extends State<CardConsultas> {
       ),
       child: Row(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.height / 12,
-            height: MediaQuery.of(context).size.height / 12,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              image: const DecorationImage(
-                image: AssetImage('assets/imagens/denteLogo.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          // Container(
+          //   width: MediaQuery.of(context).size.height / 12,
+          //   height: MediaQuery.of(context).size.height / 12,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(6),
+          //     image: const DecorationImage(
+          //       image: AssetImage('assets/imagens/denteLogo.png'),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
+
           const SizedBox(width: 8.0),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'DATA: 29/04',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                ListTile(
+                  leading: const Icon(Icons.archive_outlined),
+                  title: Text(
+                    'DATA: $date',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: const Text('Procedimento: Limpeza'),
                 ),
-                Text('Procedimento: Limpeza'),
+                const ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(
+                    'PROFESSOR: Carlos',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text('Aluno: Daniel'),
+                ),
               ],
             ),
           ),

@@ -25,6 +25,22 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$clearTextAtom =
+      Atom(name: 'HomeControllerBase.clearText', context: context);
+
+  @override
+  bool get clearText {
+    _$clearTextAtom.reportRead();
+    return super.clearText;
+  }
+
+  @override
+  set clearText(bool value) {
+    _$clearTextAtom.reportWrite(value, super.clearText, () {
+      super.clearText = value;
+    });
+  }
+
   late final _$HomeControllerBaseActionController =
       ActionController(name: 'HomeControllerBase', context: context);
 
@@ -40,11 +56,11 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
-  void searchClear() {
+  void clearSearch(bool value) {
     final _$actionInfo = _$HomeControllerBaseActionController.startAction(
-        name: 'HomeControllerBase.searchClear');
+        name: 'HomeControllerBase.clearSearch');
     try {
-      return super.searchClear();
+      return super.clearSearch(value);
     } finally {
       _$HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -53,7 +69,8 @@ mixin _$HomeController on HomeControllerBase, Store {
   @override
   String toString() {
     return '''
-search: ${search}
+search: ${search},
+clearText: ${clearText}
     ''';
   }
 }
