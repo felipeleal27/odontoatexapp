@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DefaultRadioButton extends StatelessWidget {
+class DefaultCheckButton extends StatelessWidget {
   final String title;
   final String value;
   final IconData? icon;
   final bool isSelected;
   final Function onChanged;
 
-  const DefaultRadioButton(
+  const DefaultCheckButton(
       {Key? key,
       required this.title,
       required this.value,

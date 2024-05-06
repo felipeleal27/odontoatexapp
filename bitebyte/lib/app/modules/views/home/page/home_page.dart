@@ -1,12 +1,10 @@
 import 'package:bitebyte/app/core/ui/widgtes/default_redio_button.dart';
-import 'package:bitebyte/app/core/ui/widgtes/default_text_form_field.dart';
 import 'package:bitebyte/app/modules/views/home/controller/home_controller.dart';
 import 'package:bitebyte/app/modules/views/home/widgets/card_consultas.dart';
 import 'package:bitebyte/app/modules/views/login_page/login_nome_rotas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -209,16 +207,17 @@ class _HomePageState extends State<HomePage> {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    DefaultRadioButton(
+                    DefaultCheckButton(
                       title: 'Data',
                       value: 'Option 1',
                       icon: Icons.calendar_month,
                       isSelected: controller.isDataChecked,
                       onChanged: (value) {
                         controller.setIsDataChecked(value);
+                        showDatePickerDialog(context);
                       },
                     ),
-                    DefaultRadioButton(
+                    DefaultCheckButton(
                       title: 'Professor',
                       value: 'Option 2',
                       icon: Icons.person,
@@ -227,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                         controller.setIsProfessorChecked(value);
                       },
                     ),
-                    DefaultRadioButton(
+                    DefaultCheckButton(
                       title: 'Procedimento',
                       value: 'Option 3',
                       icon: Icons.medical_services_outlined,
@@ -259,5 +258,55 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  void showDatePickerDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Selecione uma data'),
+          content: Observer(
+            builder: (_) {
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          controller.selectedDate1 = openCalendar(context);
+                        },
+                        child: const Text('Botão 1'),
+                      ),
+                      Text('Data Selecionada: ${controller.selectedDate1}'),
+                    ],
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // TODO: Implementar ação para o segundo botão
+                    },
+                    child: const Text('Botão 2'),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  String openCalendar(BuildContext context) {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      helpText: 'Selecione',
+    ).then((selectedDate) {
+      return selectedDate;
+    });
+    return '';
   }
 }

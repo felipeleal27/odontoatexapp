@@ -98,6 +98,38 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$selectedDate1Atom =
+      Atom(name: 'HomeControllerBase.selectedDate1', context: context);
+
+  @override
+  String get selectedDate1 {
+    _$selectedDate1Atom.reportRead();
+    return super.selectedDate1;
+  }
+
+  @override
+  set selectedDate1(String value) {
+    _$selectedDate1Atom.reportWrite(value, super.selectedDate1, () {
+      super.selectedDate1 = value;
+    });
+  }
+
+  late final _$selectedDate2Atom =
+      Atom(name: 'HomeControllerBase.selectedDate2', context: context);
+
+  @override
+  String get selectedDate2 {
+    _$selectedDate2Atom.reportRead();
+    return super.selectedDate2;
+  }
+
+  @override
+  set selectedDate2(String value) {
+    _$selectedDate2Atom.reportWrite(value, super.selectedDate2, () {
+      super.selectedDate2 = value;
+    });
+  }
+
   late final _$listFiltroAtom =
       Atom(name: 'HomeControllerBase.listFiltro', context: context);
 
@@ -191,6 +223,8 @@ clearText: ${clearText},
 isDataChecked: ${isDataChecked},
 isProfessorChecked: ${isProfessorChecked},
 isProcedimentoChecked: ${isProcedimentoChecked},
+selectedDate1: ${selectedDate1},
+selectedDate2: ${selectedDate2},
 listFiltro: ${listFiltro},
 isCheckedAll: ${isCheckedAll}
     ''';

@@ -26,6 +26,12 @@ abstract class HomeControllerBase with Store {
   bool isProcedimentoChecked = false;
 
   @observable
+  String selectedDate1 = '';
+
+  @observable
+  String selectedDate2 = '';
+
+  @observable
   List<String> listFiltro = ObservableList.of([]);
 
   @action
