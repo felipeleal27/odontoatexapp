@@ -26,10 +26,16 @@ abstract class HomeControllerBase with Store {
   bool isProcedimentoChecked = false;
 
   @observable
-  String selectedDate1 = '';
+  String dataInicial = '25/04/2024';
 
   @observable
-  String selectedDate2 = '';
+  String dataFinal = '06/05/2024';
+
+  @observable
+  String professor = 'Carlos';
+
+  @observable
+  String procedimento = 'Limpeza';
 
   @observable
   List<String> listFiltro = ObservableList.of([]);
@@ -72,4 +78,7 @@ abstract class HomeControllerBase with Store {
       }
     }
   }
+
+  @action
+  void setProfessor(String value) => professor = value;
 }

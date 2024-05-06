@@ -1,4 +1,5 @@
-import 'package:bitebyte/app/core/ui/widgtes/default_redio_button.dart';
+import 'package:bitebyte/app/core/ui/widgtes/default_check_button.dart';
+import 'package:bitebyte/app/core/ui/widgtes/default_radio_button.dart';
 import 'package:bitebyte/app/modules/views/home/controller/home_controller.dart';
 import 'package:bitebyte/app/modules/views/home/widgets/card_consultas.dart';
 import 'package:bitebyte/app/modules/views/login_page/login_nome_rotas.dart';
@@ -59,7 +60,23 @@ class _HomePageState extends State<HomePage> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         subtitle: controller.listFiltro.isNotEmpty
-                            ? Text(controller.listFiltro.join(' - '))
+                            ? Column(
+                                children: controller.listFiltro.map((element) {
+                                  return Row(
+                                    children: [
+                                      Text(element),
+                                      element == "Data"
+                                          ? Text(
+                                              ' - ${controller.dataInicial} - ${controller.dataFinal}')
+                                          : element == "Professor"
+                                              ? Text(
+                                                  ' - ${controller.professor}')
+                                              : Text(
+                                                  ' - ${controller.procedimento}'),
+                                    ],
+                                  );
+                                }).toList(),
+                              )
                             : null,
                       ),
                     ),
@@ -223,6 +240,9 @@ class _HomePageState extends State<HomePage> {
                       icon: Icons.person,
                       isSelected: controller.isProfessorChecked,
                       onChanged: (value) {
+                        if (value) {
+                          selectProfessor(context);
+                        }
                         controller.setIsProfessorChecked(value);
                       },
                     ),
@@ -275,17 +295,15 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          controller.selectedDate1 = openCalendar(context);
+                          controller.dataInicial = openCalendar(context);
                         },
                         child: const Text('Botão 1'),
                       ),
-                      Text('Data Selecionada: ${controller.selectedDate1}'),
+                      Text('Data Selecionada: ${controller.dataFinal}'),
                     ],
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      // TODO: Implementar ação para o segundo botão
-                    },
+                    onPressed: () {},
                     child: const Text('Botão 2'),
                   ),
                 ],
@@ -303,10 +321,55 @@ class _HomePageState extends State<HomePage> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      helpText: 'Selecione',
+      helpText: 'Selecione data inicio',
     ).then((selectedDate) {
       return selectedDate;
     });
     return '';
+  }
+
+  void selectProfessor(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: AlertDialog(
+              title: const Text('Selecione um professor'),
+              content: Observer(
+                builder: (_) {
+                  return Column(
+                    mainAxisSize: MainAxisSize
+                        .min, // Adicionado para reduzir o tamanho da coluna ao mínimo
+                    children: [
+                      DefaultRadioButton(
+                          title: 'Professor 1',
+                          value: 'Professor 1',
+                          groupValue: controller.professor,
+                          onChanged: (value) {
+                            controller.setProfessor(value ?? '');
+                            Navigator.pop(context);
+                          },
+                          icon: Icons.abc),
+                      DefaultRadioButton(
+                          title: 'Professor 2',
+                          value: 'Professor 2',
+                          groupValue: controller.professor,
+                          onChanged: (value) {
+                            controller.setProfessor(value ?? '');
+                            Navigator.pop(context);
+                          },
+                          icon: Icons.abc),
+                      // Adicione mais botões de opção conforme necessário
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

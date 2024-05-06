@@ -98,35 +98,67 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
-  late final _$selectedDate1Atom =
-      Atom(name: 'HomeControllerBase.selectedDate1', context: context);
+  late final _$dataInicialAtom =
+      Atom(name: 'HomeControllerBase.dataInicial', context: context);
 
   @override
-  String get selectedDate1 {
-    _$selectedDate1Atom.reportRead();
-    return super.selectedDate1;
+  String get dataInicial {
+    _$dataInicialAtom.reportRead();
+    return super.dataInicial;
   }
 
   @override
-  set selectedDate1(String value) {
-    _$selectedDate1Atom.reportWrite(value, super.selectedDate1, () {
-      super.selectedDate1 = value;
+  set dataInicial(String value) {
+    _$dataInicialAtom.reportWrite(value, super.dataInicial, () {
+      super.dataInicial = value;
     });
   }
 
-  late final _$selectedDate2Atom =
-      Atom(name: 'HomeControllerBase.selectedDate2', context: context);
+  late final _$dataFinalAtom =
+      Atom(name: 'HomeControllerBase.dataFinal', context: context);
 
   @override
-  String get selectedDate2 {
-    _$selectedDate2Atom.reportRead();
-    return super.selectedDate2;
+  String get dataFinal {
+    _$dataFinalAtom.reportRead();
+    return super.dataFinal;
   }
 
   @override
-  set selectedDate2(String value) {
-    _$selectedDate2Atom.reportWrite(value, super.selectedDate2, () {
-      super.selectedDate2 = value;
+  set dataFinal(String value) {
+    _$dataFinalAtom.reportWrite(value, super.dataFinal, () {
+      super.dataFinal = value;
+    });
+  }
+
+  late final _$professorAtom =
+      Atom(name: 'HomeControllerBase.professor', context: context);
+
+  @override
+  String get professor {
+    _$professorAtom.reportRead();
+    return super.professor;
+  }
+
+  @override
+  set professor(String value) {
+    _$professorAtom.reportWrite(value, super.professor, () {
+      super.professor = value;
+    });
+  }
+
+  late final _$procedimentoAtom =
+      Atom(name: 'HomeControllerBase.procedimento', context: context);
+
+  @override
+  String get procedimento {
+    _$procedimentoAtom.reportRead();
+    return super.procedimento;
+  }
+
+  @override
+  set procedimento(String value) {
+    _$procedimentoAtom.reportWrite(value, super.procedimento, () {
+      super.procedimento = value;
     });
   }
 
@@ -216,6 +248,17 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
+  void setProfessor(String value) {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.setProfessor');
+    try {
+      return super.setProfessor(value);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 search: ${search},
@@ -223,8 +266,10 @@ clearText: ${clearText},
 isDataChecked: ${isDataChecked},
 isProfessorChecked: ${isProfessorChecked},
 isProcedimentoChecked: ${isProcedimentoChecked},
-selectedDate1: ${selectedDate1},
-selectedDate2: ${selectedDate2},
+dataInicial: ${dataInicial},
+dataFinal: ${dataFinal},
+professor: ${professor},
+procedimento: ${procedimento},
 listFiltro: ${listFiltro},
 isCheckedAll: ${isCheckedAll}
     ''';
