@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bitebyte/app/core/local_storage/local_storage.dart';
 import 'package:bitebyte/app/core/ui/widgtes/messages.dart';
 import 'package:bitebyte/app/modules/views/home/home_nome_rotas.dart';
 import 'package:bitebyte/app/repository/login/login_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 part 'login_controller.g.dart';
@@ -40,7 +43,7 @@ abstract class LoginControllerBase with Store {
   void changeObscure() => isObscure = !isObscure;
 
   @action
-  Future<void> login() async {
+  Future<void> login(BuildContext context) async {
     isLoading = true;
     final response = await _loginRepository.login(userName, password);
     if (savePassword) {
@@ -50,9 +53,9 @@ abstract class LoginControllerBase with Store {
     if (response) {
       Modular.to
           .navigate('${HomeNomeRotas.modulo}${HomeNomeRotas.inicialProdutor}');
-      Messages.success('Login realizado com sucesso!');
+      CustomSnackbar.success(context, 'Login realizado com sucesso!');
     } else {
-      Messages.alert('Erro ao realizar login');
+      CustomSnackbar.alert(context, 'Usuário ou senha inválidos!');
     }
   }
 

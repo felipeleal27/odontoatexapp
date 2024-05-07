@@ -1,6 +1,5 @@
-import 'package:bitebyte/app/modules/views/consultas_cliente/consultas_cliente_nome_rotas.dart';
+import 'package:bitebyte/app/core/ui/widgtes/messages.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
 class CardConsultas extends StatefulWidget {
@@ -12,14 +11,26 @@ class CardConsultas extends StatefulWidget {
 
 class _CardConsultasState extends State<CardConsultas> {
   var date = DateFormat("dd/MM/yyyy").format(DateTime.now());
+  bool isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: () {
-        Modular.to.pushNamed(
-            '${ConsultasNomeRotas.modulo}${ConsultasNomeRotas.inicial}');
+        setState(() {
+          !isExpanded
+              ? CustomSnackbar.info(
+                  context, 'Toque duas vezes para expandir a consulta.')
+              : null;
+          isExpanded = !isExpanded;
+        });
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(seconds: 1),
+        width: size.width,
+        height: isExpanded ? size.height / 2.2 : size.height / 5,
         padding: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -43,7 +54,7 @@ class _CardConsultasState extends State<CardConsultas> {
                 children: [
                   const ListTile(
                     leading: Icon(
-                      Icons.person,
+                      Icons.picture_as_pdf,
                     ),
                     title: Text(
                       'Professor: Carlos',

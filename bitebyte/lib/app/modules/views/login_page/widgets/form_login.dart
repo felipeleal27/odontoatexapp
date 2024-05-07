@@ -50,8 +50,8 @@ class _FormLoginState extends State<FormLogin> {
                 ),
               ),
               obscureText: controller.isObscure,
-              clickButton: () => controller
-                  .login(), // passar a função que quer que faça ao clicar "ok" no teclado
+              clickButton: () => controller.login(
+                  context), // passar a função que quer que faça ao clicar "ok" no teclado
             ),
             SizedBox(height: size.height.h / 100),
             Row(
@@ -81,7 +81,7 @@ class _FormLoginState extends State<FormLogin> {
               text: 'Entrar',
               onTap: () {
                 FocusScope.of(context).unfocus();
-                controller.login();
+                controller.login(context);
               },
               circularProgressIndicator: controller.isLoading,
             ),
