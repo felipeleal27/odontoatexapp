@@ -162,6 +162,38 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$selectedIndexAtom =
+      Atom(name: 'HomeControllerBase.selectedIndex', context: context);
+
+  @override
+  int get selectedIndex {
+    _$selectedIndexAtom.reportRead();
+    return super.selectedIndex;
+  }
+
+  @override
+  set selectedIndex(int value) {
+    _$selectedIndexAtom.reportWrite(value, super.selectedIndex, () {
+      super.selectedIndex = value;
+    });
+  }
+
+  late final _$widgetOptionsAtom =
+      Atom(name: 'HomeControllerBase.widgetOptions', context: context);
+
+  @override
+  List<Widget> get widgetOptions {
+    _$widgetOptionsAtom.reportRead();
+    return super.widgetOptions;
+  }
+
+  @override
+  set widgetOptions(List<Widget> value) {
+    _$widgetOptionsAtom.reportWrite(value, super.widgetOptions, () {
+      super.widgetOptions = value;
+    });
+  }
+
   late final _$listFiltroAtom =
       Atom(name: 'HomeControllerBase.listFiltro', context: context);
 
@@ -259,6 +291,17 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
+  void onTabTapped(int index) {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.onTabTapped');
+    try {
+      return super.onTabTapped(index);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 search: ${search},
@@ -270,6 +313,8 @@ dataInicial: ${dataInicial},
 dataFinal: ${dataFinal},
 professor: ${professor},
 procedimento: ${procedimento},
+selectedIndex: ${selectedIndex},
+widgetOptions: ${widgetOptions},
 listFiltro: ${listFiltro},
 isCheckedAll: ${isCheckedAll}
     ''';

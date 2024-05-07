@@ -48,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/imagens/logoapp.png'),
+          fit: BoxFit.fill,
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(100),

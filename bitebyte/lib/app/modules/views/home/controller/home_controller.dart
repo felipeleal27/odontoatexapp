@@ -1,4 +1,6 @@
 import 'package:bitebyte/app/core/local_storage/local_storage.dart';
+import 'package:bitebyte/app/modules/views/home/page/home_consultas_page.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 part 'home_controller.g.dart';
 
@@ -36,6 +38,15 @@ abstract class HomeControllerBase with Store {
 
   @observable
   String procedimento = 'Limpeza';
+
+  @observable
+  int selectedIndex = 0;
+
+  @observable
+  List<Widget> widgetOptions = <Widget>[
+    const HomeConsultasPage(),
+    // const HomeAgendasPage(),
+  ];
 
   @observable
   List<String> listFiltro = ObservableList.of([]);
@@ -81,4 +92,7 @@ abstract class HomeControllerBase with Store {
 
   @action
   void setProfessor(String value) => professor = value;
+
+  @action
+  void onTabTapped(int index) => selectedIndex = index;
 }

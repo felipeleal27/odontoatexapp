@@ -32,48 +32,39 @@ class _ConsultasClientePageState extends State<ConsultasClientePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Colors.grey, Colors.blue, Colors.white],
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+                Text(
+                  DateFormat("dd/MM/yyyy").format(DateTime.now()),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.picture_as_pdf),
+                ),
+              ],
             ),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.more_vert)),
-                  Text(
-                    DateFormat("dd/MM/yyyy").format(DateTime.now()),
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.picture_as_pdf),
-                  ),
-                ],
-              ),
-              const Text(
-                'LIMPEZA',
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              const SizedBox(height: 40),
-              const Text(
+            const Text(
+              'LIMPEZA',
+              style:
+                  TextStyle(fontSize: 18, decoration: TextDecoration.underline),
+            ),
+            const SizedBox(height: 40),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
                 'Professor responsável: Carlos Almeida da Silva Santos Antonio',
-                style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
         ),
       ),
     );
