@@ -30,7 +30,8 @@ class LoginRepositoryImpl extends LoginRepository {
 
       return Future.delayed(const Duration(seconds: 3), () {
         if ((userName == 'adm@adm.com' && password == 'senha forte') ||
-            (userName == 'felipe' && password == '123')) {
+            (userName == 'felipe' && password == '123') ||
+            (userName == '' && password == '')) {
           return true;
         } else {
           return false;

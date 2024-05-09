@@ -1,4 +1,6 @@
+import 'package:bitebyte/app/modules/views/consultas_cliente/controller/consultas_cliente_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
 class ConsultasClientePage extends StatefulWidget {
@@ -9,6 +11,7 @@ class ConsultasClientePage extends StatefulWidget {
 }
 
 class _ConsultasClientePageState extends State<ConsultasClientePage> {
+  final controller = Modular.get<ConsultasController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +49,9 @@ class _ConsultasClientePageState extends State<ConsultasClientePage> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.createPdf(context, '202405090700', 'Carlos');
+                  },
                   icon: const Icon(Icons.picture_as_pdf),
                 ),
               ],
@@ -60,7 +65,7 @@ class _ConsultasClientePageState extends State<ConsultasClientePage> {
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                'Professor responsável: Carlos Almeida da Silva Santos Antonio',
+                '',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             )
