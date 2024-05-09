@@ -2,12 +2,13 @@
 
 import 'dart:io';
 
+import 'package:external_path/external_path.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pdf/widgets.dart' as pdfLib;
 
 class ViewPdfPage extends StatefulWidget {
   final String path;
@@ -20,7 +21,7 @@ class ViewPdfPage extends StatefulWidget {
 
 class _ViewPdfPageState extends State<ViewPdfPage> {
   int _totalPages = 0;
-  final int _currentPage = 0;
+  int _currentPage = 0; // Comece de 0 novamente
   bool pdfReady = false;
   PDFViewController? _pdfViewController;
 
@@ -28,84 +29,88 @@ class _ViewPdfPageState extends State<ViewPdfPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Document"),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () {
-              _pdfViewController!.setPage(_currentPage - 1);
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.chevron_right),
-            onPressed: () {
-              _pdfViewController!.setPage(_currentPage + 1);
-            },
-          ),
-        ],
+        title: const Text("Documento"),
+        centerTitle: true,
       ),
-      body: Stack(
+      body: Column(
         children: <Widget>[
-          PDFView(
-            filePath: widget.path,
-            autoSpacing: true,
-            enableSwipe: true,
-            pageSnap: true,
-            swipeHorizontal: true,
-            nightMode: false,
-            onError: (err) {
-              if (kDebugMode) {
-                print(err);
-              }
-            },
-            onRender: (pages) {
-              setState(() {
-                _totalPages = pages!;
-                pdfReady = true;
-              });
-            },
-            onViewCreated: (PDFViewController vc) {
-              _pdfViewController = vc;
-            },
-            onPageChanged: (int? page, int? total) {
-              setState(() {});
-            },
-            onPageError: (page, err) {},
+          Expanded(
+            child: Stack(
+              children: <Widget>[
+                PDFView(
+                  filePath: widget.path,
+                  autoSpacing: true,
+                  enableSwipe: true,
+                  pageSnap: true,
+                  swipeHorizontal: true,
+                  nightMode: false,
+                  onError: (err) {
+                    if (kDebugMode) {
+                      print(err);
+                    }
+                  },
+                  onRender: (pages) {
+                    setState(() {
+                      _totalPages = pages!;
+                      pdfReady = true;
+                    });
+                  },
+                  onViewCreated: (PDFViewController vc) {
+                    _pdfViewController = vc;
+                  },
+                  onPageChanged: (int? page, int? total) {
+                    setState(() {
+                      _currentPage = page!; // Atualize o valor de _currentPage
+                    });
+                  },
+                  onPageError: (page, err) {},
+                ),
+                !pdfReady
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : const Offstage()
+              ],
+            ),
           ),
-          !pdfReady
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : const Offstage()
+          ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.chevron_left),
+                onPressed: () {
+                  _pdfViewController!.setPage(_currentPage - 1);
+                },
+              ),
+              Text(
+                  '${_currentPage + 1}'), // Adicione 1 ao exibir o número da página
+              IconButton(
+                icon: const Icon(Icons.chevron_right),
+                onPressed: () {
+                  _pdfViewController!.setPage(_currentPage + 1);
+                },
+              ),
+            ],
+          ),
         ],
       ),
-
-// ...
-
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (await Permission.storage.request().isGranted) {
-            final Directory dir = await getApplicationDocumentsDirectory();
-            final String newPath = '${dir.path}/example.pdf';
+            final pdfLib.Document pdf = pdfLib.Document(deflate: zlib.encode);
+            final String dir =
+                await ExternalPath.getExternalStoragePublicDirectory(
+                    ExternalPath.DIRECTORY_DOWNLOADS);
+            final String path = '$dir/consulta.pdf';
 
-            final File originalFile = File(widget.path);
-            final File newFile = File(newPath);
+            File file = File(path);
+            final Uint8List pdfBytes = await pdf.save();
+            file.writeAsBytesSync(pdfBytes);
 
-            await newFile.writeAsBytes(await originalFile.readAsBytes());
-
-            // Abre o arquivo com um aplicativo externo
-            OpenFile.open(newPath);
-
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('PDF salvo em: $newPath')),
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                  content: Text('Permissão de armazenamento negada')),
-            );
+            OpenFile.open(file.path);
           }
         },
+        child: const Icon(Icons.download, color: Colors.white),
       ),
     );
   }

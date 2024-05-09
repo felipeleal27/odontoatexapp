@@ -1,6 +1,7 @@
 import 'package:bitebyte/app/modules/views/consultas_cliente/controller/consultas_cliente_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class ConsultasClientePage extends StatefulWidget {
@@ -12,8 +13,10 @@ class ConsultasClientePage extends StatefulWidget {
 
 class _ConsultasClientePageState extends State<ConsultasClientePage> {
   final controller = Modular.get<ConsultasController>();
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Consultas do Cliente'),
@@ -38,23 +41,22 @@ class _ConsultasClientePageState extends State<ConsultasClientePage> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
-                Text(
-                  DateFormat("dd/MM/yyyy").format(DateTime.now()),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                // IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+                Expanded(
+                  child: Text(
+                    DateFormat("dd/MM/yyyy").format(DateTime.now()),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center, // Centraliza o texto
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    controller.createPdf(context, '202405090700', false);
-                  },
-                  icon: const Icon(Icons.picture_as_pdf),
-                ),
               ],
+            ),
+            SizedBox(
+              height: size.height.h * 0.02,
             ),
             const Text(
               'LIMPEZA',
@@ -71,6 +73,12 @@ class _ConsultasClientePageState extends State<ConsultasClientePage> {
             )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          controller.createPdf(context, '202405090700', false);
+        },
+        child: const Icon(Icons.picture_as_pdf),
       ),
     );
   }
