@@ -16,13 +16,22 @@ class ConsultasController = ConsultasControllerBase with _$ConsultasController;
 
 abstract class ConsultasControllerBase with Store {
   @action
-  createPdf(BuildContext context, String date, String professor) async {
+  createPdf(BuildContext context, String date, bool viewPDF) async {
     final pdfLib.Document pdf = pdfLib.Document(deflate: zlib.encode);
     pdf.addPage(
       pdfLib.Page(
         build: (context) {
-          return pdfLib.Center(
-            child: pdfLib.Text('HACKATON 2024 - PDF'),
+          return pdfLib.Padding(
+            padding: const pdfLib.EdgeInsets.all(10),
+            child: pdfLib.Container(
+              decoration: const pdfLib.BoxDecoration(
+                border: pdfLib.Border(
+                  bottom: pdfLib.BorderSide(
+                    width: 1,
+                  ),
+                ),
+              ),
+            ),
           );
         },
       ),
@@ -30,7 +39,7 @@ abstract class ConsultasControllerBase with Store {
     final String dir = await ExternalPath.getExternalStoragePublicDirectory(
         ExternalPath.DIRECTORY_DOWNLOADS);
     final String path =
-        '$dir/CONSULTA_$date.pdf'; // Adicione o nome do arquivo ao caminho
+        '$dir/consulta_$date.pdf'; // Adicione o nome do arquivo ao caminho
 
     File file = File(path);
     final Uint8List pdfBytes = await pdf.save();

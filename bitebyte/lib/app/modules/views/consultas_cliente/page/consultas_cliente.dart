@@ -50,7 +50,7 @@ class _ConsultasClientePageState extends State<ConsultasClientePage> {
                 ),
                 IconButton(
                   onPressed: () {
-                    controller.createPdf(context, '202405090700', 'Carlos');
+                    controller.createPdf(context, '202405090700', false);
                   },
                   icon: const Icon(Icons.picture_as_pdf),
                 ),

@@ -8,8 +8,6 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:share/share.dart';
-import 'package:android_path_provider/android_path_provider.dart';
 
 class ViewPdfPage extends StatefulWidget {
   final String path;
