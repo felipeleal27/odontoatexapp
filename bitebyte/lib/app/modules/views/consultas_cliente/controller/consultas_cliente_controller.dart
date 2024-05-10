@@ -28,13 +28,29 @@ abstract class ConsultasControllerBase with Store {
 
     pdf.addPage(
       pdfLib.Page(
+        margin: const pdfLib.EdgeInsets.all(30),
         build: (context) {
           return pdfLib.Container(
+            padding: const pdfLib.EdgeInsets.all(0),
             decoration: pdfLib.BoxDecoration(
               border: pdfLib.Border.all(width: 1),
             ),
             child: pdfLib.Stack(
               children: [
+                pdfLib.Center(
+                  child: pdfLib.Opacity(
+                    opacity: 0.5,
+                    child: pdfLib.SizedBox(
+                      width: size.width.w,
+                      height: size.height.h,
+                      child: pdfLib.Image(
+                        pdfLib.MemoryImage(
+                          byteList2,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 pdfLib.Column(
                   children: [
                     pdfLib.Padding(
@@ -93,7 +109,7 @@ abstract class ConsultasControllerBase with Store {
                                 child: pdfLib.Text(
                                   'Nome: Felipe da Silva Leal, 20 anos',
                                   style: const pdfLib.TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15,
                                   ),
                                 ),
                               ),
@@ -102,7 +118,7 @@ abstract class ConsultasControllerBase with Store {
                                 child: pdfLib.Text(
                                   'E-mail: felipe.leal@aluno.unifenas.br',
                                   style: const pdfLib.TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15,
                                   ),
                                 ),
                               ),
@@ -111,7 +127,7 @@ abstract class ConsultasControllerBase with Store {
                                 child: pdfLib.Text(
                                   'Telefone: (35) 9 9999-9999',
                                   style: const pdfLib.TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15,
                                   ),
                                 ),
                               ),
@@ -120,7 +136,7 @@ abstract class ConsultasControllerBase with Store {
                                 child: pdfLib.Text(
                                   'CPF: 123.456.789-00',
                                   style: const pdfLib.TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15,
                                   ),
                                 ),
                               ),
@@ -133,6 +149,42 @@ abstract class ConsultasControllerBase with Store {
                               //     ),
                               //   ),
                               // ),
+                              pdfLib.SizedBox(height: size.height.h * .02),
+                              pdfLib.Text(
+                                'RESPONSÁVEIS:',
+                                style: pdfLib.TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: pdfLib.FontWeight.bold,
+                                ),
+                              ),
+                              pdfLib.Padding(
+                                padding: const pdfLib.EdgeInsets.only(left: 20),
+                                child: pdfLib.Text(
+                                  'Professor:',
+                                  style: pdfLib.TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: pdfLib.FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              pdfLib.Padding(
+                                padding: const pdfLib.EdgeInsets.only(left: 30),
+                                child: pdfLib.Text(
+                                  'Nome: Carlos Antônio de Souza',
+                                  style: const pdfLib.TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                              pdfLib.Padding(
+                                padding: const pdfLib.EdgeInsets.only(left: 30),
+                                child: pdfLib.Text(
+                                  'E-mail: carlos.souz.@unifenas.br',
+                                  style: const pdfLib.TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ],
