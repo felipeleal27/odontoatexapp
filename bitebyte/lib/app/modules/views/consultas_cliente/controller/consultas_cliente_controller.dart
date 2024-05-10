@@ -37,9 +37,6 @@ abstract class ConsultasControllerBase with Store {
               children: [
                 pdfLib.Column(
                   children: [
-                    pdfLib.Expanded(
-                      child: pdfLib.Container(),
-                    ),
                     pdfLib.Padding(
                       padding: const pdfLib.EdgeInsets.all(10),
                       child: pdfLib.SizedBox(
@@ -50,6 +47,95 @@ abstract class ConsultasControllerBase with Store {
                             byteList,
                           ),
                         ),
+                      ),
+                    ),
+                    pdfLib.Padding(
+                      padding: const pdfLib.EdgeInsets.all(20),
+                      child: pdfLib.Column(
+                        children: [
+                          // pdfLib.Text(
+                          //   'FELIPE DA SILVA LEAL',
+                          //   style: pdfLib.TextStyle(
+                          //     fontSize: 22,
+                          //     fontWeight: pdfLib.FontWeight.bold,
+                          //     decoration: pdfLib.TextDecoration.underline,
+                          //   ),
+                          // ),
+                          pdfLib.SizedBox(height: size.height.h / 80),
+                          pdfLib.Text(
+                            'CONSULTA ODONTOLÓGICA',
+                            style: pdfLib.TextStyle(
+                              fontSize: 18,
+                              fontWeight: pdfLib.FontWeight.bold,
+                              decoration: pdfLib.TextDecoration.underline,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    pdfLib.SizedBox(height: size.height.h * .02),
+                    pdfLib.Padding(
+                      padding: const pdfLib.EdgeInsets.all(15),
+                      child: pdfLib.Row(
+                        children: [
+                          pdfLib.Column(
+                            crossAxisAlignment: pdfLib.CrossAxisAlignment.start,
+                            children: [
+                              pdfLib.Text(
+                                'PACIENTE:',
+                                style: pdfLib.TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: pdfLib.FontWeight.bold,
+                                ),
+                              ),
+                              pdfLib.Padding(
+                                padding: const pdfLib.EdgeInsets.only(left: 20),
+                                child: pdfLib.Text(
+                                  'Nome: Felipe da Silva Leal, 20 anos',
+                                  style: const pdfLib.TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              pdfLib.Padding(
+                                padding: const pdfLib.EdgeInsets.only(left: 20),
+                                child: pdfLib.Text(
+                                  'E-mail: felipe.leal@aluno.unifenas.br',
+                                  style: const pdfLib.TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              pdfLib.Padding(
+                                padding: const pdfLib.EdgeInsets.only(left: 20),
+                                child: pdfLib.Text(
+                                  'Telefone: (35) 9 9999-9999',
+                                  style: const pdfLib.TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              pdfLib.Padding(
+                                padding: const pdfLib.EdgeInsets.only(left: 20),
+                                child: pdfLib.Text(
+                                  'CPF: 123.456.789-00',
+                                  style: const pdfLib.TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              // pdfLib.Padding(
+                              //   padding: const pdfLib.EdgeInsets.only(left: 20),
+                              //   child: pdfLib.Text(
+                              //     'Idade: 20',
+                              //     style: const pdfLib.TextStyle(
+                              //       fontSize: 20,
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -79,10 +165,6 @@ abstract class ConsultasControllerBase with Store {
 
     final File file = File(path);
     final Uint8List pdfBytes = await pdf.save();
-    file.writeAsBytesSync(pdfBytes);
-
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ViewPdfPage(path: path)));
     file.writeAsBytesSync(pdfBytes);
 
     Navigator.push(context,

@@ -97,17 +97,15 @@ class _ViewPdfPageState extends State<ViewPdfPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (await Permission.storage.request().isGranted) {
-            final pdfLib.Document pdf = pdfLib.Document(deflate: zlib.encode);
             final String dir =
                 await ExternalPath.getExternalStoragePublicDirectory(
                     ExternalPath.DIRECTORY_DOWNLOADS);
-            final String path = '$dir/consulta.pdf';
+            final String newPath = '$dir/consulta.pdf';
 
-            File file = File(path);
-            final Uint8List pdfBytes = await pdf.save();
-            file.writeAsBytesSync(pdfBytes);
+            File file = File(widget.path);
+            file.copy(newPath);
 
-            OpenFile.open(file.path);
+            OpenFile.open(newPath);
           }
         },
         child: const Icon(Icons.download, color: Colors.white),
