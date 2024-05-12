@@ -1,5 +1,6 @@
 import 'package:bitebyte/app/core/ui/widgtes/default_check_button.dart';
 import 'package:bitebyte/app/core/ui/widgtes/default_radio_button.dart';
+import 'package:bitebyte/app/modules/views/consultas_cliente/controller/consultas_cliente_controller.dart';
 import 'package:bitebyte/app/modules/views/home/controller/home_controller.dart';
 import 'package:bitebyte/app/modules/views/home/widgets/card_consultas.dart';
 import 'package:flutter/material.dart';
@@ -15,91 +16,100 @@ class HomeConsultasPage extends StatefulWidget {
 
 class _HomeConsultasPageState extends State<HomeConsultasPage> {
   final controller = Modular.get<HomeController>();
+  final controllerConsultas = Modular.get<ConsultasController>();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: size.height / 80),
-          Observer(
-            builder: (_) {
-              return GestureDetector(
-                onTap: () {
-                  filtrar(context);
+    return Observer(
+      builder: (_) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: size.height / 80),
+              Observer(
+                builder: (_) {
+                  return GestureDetector(
+                    onTap: () {
+                      filtrar(context);
+                    },
+                    child: ListTile(
+                      title: Container(
+                        // height: size.height / 12,
+                        // width: size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.grey,
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: ListTile(
+                          leading: const Icon(Icons.filter_alt_outlined),
+                          title: Text(
+                            controller.listFiltro.isEmpty
+                                ? 'Filtrar'
+                                : 'Filtros:',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: controller.listFiltro.isNotEmpty
+                              ? Column(
+                                  children:
+                                      controller.listFiltro.map((element) {
+                                    return Row(
+                                      children: [
+                                        Text(element),
+                                        element == "Data"
+                                            ? Text(
+                                                ' - ${controller.dataInicial} - ${controller.dataFinal}')
+                                            : element == "Professor"
+                                                ? Text(
+                                                    ' - ${controller.professor}')
+                                                : Text(
+                                                    ' - ${controller.procedimento}'),
+                                      ],
+                                    );
+                                  }).toList(),
+                                )
+                              : null,
+                        ),
+                      ),
+                      // trailing: IconButton(
+                      //   icon: const Icon(Icons.filter_alt_outlined),
+                      //   onPressed: () {
+                      //     filtrar(context);
+                      //   },
+                      // ),
+                    ),
+                  );
                 },
-                child: ListTile(
-                  title: Container(
-                    // height: size.height / 12,
-                    // width: size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: Offset(0, 3),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return const Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 30, left: 5, right: 5),
+                          child: CardConsultas(),
                         ),
                       ],
-                    ),
-                    child: ListTile(
-                      leading: const Icon(Icons.filter_alt_outlined),
-                      title: Text(
-                        controller.listFiltro.isEmpty ? 'Filtrar' : 'Filtros:',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: controller.listFiltro.isNotEmpty
-                          ? Column(
-                              children: controller.listFiltro.map((element) {
-                                return Row(
-                                  children: [
-                                    Text(element),
-                                    element == "Data"
-                                        ? Text(
-                                            ' - ${controller.dataInicial} - ${controller.dataFinal}')
-                                        : element == "Professor"
-                                            ? Text(' - ${controller.professor}')
-                                            : Text(
-                                                ' - ${controller.procedimento}'),
-                                  ],
-                                );
-                              }).toList(),
-                            )
-                          : null,
-                    ),
-                  ),
-                  // trailing: IconButton(
-                  //   icon: const Icon(Icons.filter_alt_outlined),
-                  //   onPressed: () {
-                  //     filtrar(context);
-                  //   },
-                  // ),
+                    );
+                  },
                 ),
-              );
-            },
+              ),
+            ],
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return const Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 30, left: 5, right: 5),
-                      child: CardConsultas(),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

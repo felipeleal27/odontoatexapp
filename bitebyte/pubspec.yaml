@@ -27,6 +27,7 @@ dependencies:
   uuid: ^3.0.4
   video_player: ^2.2.14
   permission_handler: ^11.3.0
+  flutter_speed_dial: ^7.0.0
 
   flutter_localizations:
     sdk: flutter

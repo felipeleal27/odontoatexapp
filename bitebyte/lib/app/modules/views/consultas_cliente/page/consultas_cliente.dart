@@ -2,6 +2,7 @@ import 'package:bitebyte/app/modules/views/consultas_cliente/controller/consulta
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 
 class ConsultasClientePage extends StatefulWidget {
@@ -22,18 +23,23 @@ class _ConsultasClientePageState extends State<ConsultasClientePage> {
         title: const Text('Consultas do Cliente'),
         centerTitle: true,
         actions: [
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white,
-              image: const DecorationImage(
-                image: AssetImage('assets/imagens/logoapp.png'),
-              ),
-            ),
-            margin: const EdgeInsets.only(right: 10),
-          ),
+          // Container(
+          //   width: 50,
+          //   height: 50,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(100),
+          //     color: Colors.white,
+          //     image: const DecorationImage(
+          //       image: AssetImage('assets/imagens/logoapp.png'),
+          //     ),
+          //   ),
+          //   margin: const EdgeInsets.only(right: 10),
+          // ),
+          IconButton(
+              onPressed: () {
+                controller.showMenuAction(context, onViewPress: () {});
+              },
+              icon: const Icon(Icons.more_vert)),
         ],
       ),
       body: Padding(
@@ -74,11 +80,33 @@ class _ConsultasClientePageState extends State<ConsultasClientePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.createPdf(context, '202405090700', false);
-        },
-        child: const Icon(Icons.picture_as_pdf),
+      floatingActionButton: SpeedDial(
+        icon: Icons.question_mark_sharp,
+        overlayColor: Colors.black,
+        overlayOpacity: 0.5,
+        spaceBetweenChildren: 20,
+        buttonSize: const Size(65, 65),
+        children: [
+          //Segunda opção
+          SpeedDialChild(
+            child: const Icon(
+              Icons.nat,
+            ),
+            backgroundColor: Colors.blue[300],
+            label: 'Dúvidas no E-mail',
+            onTap: () {},
+          ),
+
+          //Primeira opção
+          SpeedDialChild(
+            child: const Icon(Icons.accessibility),
+            backgroundColor: Colors.blue[300],
+            label: 'Duvidas no Whatsapp',
+            onTap: () {
+              controller.viewPdf(context, '20', '');
+            },
+          ),
+        ],
       ),
     );
   }

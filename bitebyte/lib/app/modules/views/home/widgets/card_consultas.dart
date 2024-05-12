@@ -1,9 +1,6 @@
-import 'package:bitebyte/app/core/ui/widgtes/messages.dart';
-import 'package:bitebyte/app/modules/views/consultas_cliente/consultas_cliente_nome_rotas.dart';
 import 'package:bitebyte/app/modules/views/home/widgets/expanded_items.dart';
 import 'package:bitebyte/app/modules/views/home/widgets/not_expanded_itens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class CardConsultas extends StatefulWidget {
   const CardConsultas({super.key});
@@ -21,21 +18,8 @@ class _CardConsultasState extends State<CardConsultas> {
     var size = MediaQuery.of(context).size;
 
     return GestureDetector(
-      onDoubleTap: () {
-        Modular.to.pushNamed(
-            '${ConsultasNomeRotas.modulo}${ConsultasNomeRotas.inicial}');
-      },
       onTap: () {
         setState(() {
-          !isExpanded
-              ? isFirstTap
-                  ? {
-                      CustomSnackbar.info(context,
-                          'Toque duas vezes para expandir a consulta.'),
-                      isFirstTap = false
-                    }
-                  : {}
-              : null;
           isExpanded = !isExpanded;
         });
       },

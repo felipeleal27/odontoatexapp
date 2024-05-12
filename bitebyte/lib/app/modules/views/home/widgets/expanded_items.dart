@@ -1,4 +1,4 @@
-import 'package:bitebyte/app/modules/views/consultas_cliente/consultas_cliente_nome_rotas.dart';
+import 'package:bitebyte/app/modules/views/consultas_cliente/controller/consultas_cliente_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +11,7 @@ class ExpandedItems extends StatefulWidget {
 }
 
 class _ExpandedItemsState extends State<ExpandedItems> {
+  final controller = Modular.get<ConsultasController>();
   var date = DateFormat("dd/MM/yyyy").format(DateTime.now());
   var hour = DateFormat("HH:mm").format(DateTime.now());
   @override
@@ -95,10 +96,12 @@ class _ExpandedItemsState extends State<ExpandedItems> {
             bottom: 0,
             child: ElevatedButton(
               onPressed: () {
-                Modular.to.pushNamed(
-                    '${ConsultasNomeRotas.modulo}${ConsultasNomeRotas.inicial}');
+                controller.viewPdf(
+                    context,
+                    DateFormat('yyyyMMddHHmm').format(DateTime.now()),
+                    'CARLOS ALMEIDA');
               },
-              child: const Text('MOSTRAR MAIS'),
+              child: const Text('GERAR PDF'),
             ),
           ),
         ],
