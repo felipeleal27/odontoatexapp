@@ -194,6 +194,54 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$selectedsAtom =
+      Atom(name: 'HomeControllerBase.selecteds', context: context);
+
+  @override
+  ObservableList<dynamic> get selecteds {
+    _$selectedsAtom.reportRead();
+    return super.selecteds;
+  }
+
+  @override
+  set selecteds(ObservableList<dynamic> value) {
+    _$selectedsAtom.reportWrite(value, super.selecteds, () {
+      super.selecteds = value;
+    });
+  }
+
+  late final _$isSelectedAllAtom =
+      Atom(name: 'HomeControllerBase.isSelectedAll', context: context);
+
+  @override
+  bool get isSelectedAll {
+    _$isSelectedAllAtom.reportRead();
+    return super.isSelectedAll;
+  }
+
+  @override
+  set isSelectedAll(bool value) {
+    _$isSelectedAllAtom.reportWrite(value, super.isSelectedAll, () {
+      super.isSelectedAll = value;
+    });
+  }
+
+  late final _$showSelectedsAtom =
+      Atom(name: 'HomeControllerBase.showSelecteds', context: context);
+
+  @override
+  bool get showSelecteds {
+    _$showSelectedsAtom.reportRead();
+    return super.showSelecteds;
+  }
+
+  @override
+  set showSelecteds(bool value) {
+    _$showSelectedsAtom.reportWrite(value, super.showSelecteds, () {
+      super.showSelecteds = value;
+    });
+  }
+
   late final _$listFiltroAtom =
       Atom(name: 'HomeControllerBase.listFiltro', context: context);
 
@@ -302,6 +350,50 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
+  void setShowSelect() {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.setShowSelect');
+    try {
+      return super.setShowSelect();
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setSelecteds(List<String> value) {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.setSelecteds');
+    try {
+      return super.setSelecteds(value);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setIsSelectedAll() {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.setIsSelectedAll');
+    try {
+      return super.setIsSelectedAll();
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void selecionaTodos(dynamic value) {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.selecionaTodos');
+    try {
+      return super.selecionaTodos(value);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 search: ${search},
@@ -315,6 +407,9 @@ professor: ${professor},
 procedimento: ${procedimento},
 selectedIndex: ${selectedIndex},
 widgetOptions: ${widgetOptions},
+selecteds: ${selecteds},
+isSelectedAll: ${isSelectedAll},
+showSelecteds: ${showSelecteds},
 listFiltro: ${listFiltro},
 isCheckedAll: ${isCheckedAll}
     ''';

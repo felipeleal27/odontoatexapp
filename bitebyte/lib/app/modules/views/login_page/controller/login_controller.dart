@@ -53,9 +53,9 @@ abstract class LoginControllerBase with Store {
     if (response) {
       Modular.to
           .navigate('${HomeNomeRotas.modulo}${HomeNomeRotas.inicialProdutor}');
-      CustomSnackbar.success(context, 'Login realizado com sucesso!');
+      Message.success(context, 'Login realizado com sucesso!');
     } else {
-      CustomSnackbar.alert(context, 'Usuário ou senha inválidos!');
+      Message.alert(context, 'Usuário ou senha inválidos!');
     }
   }
 

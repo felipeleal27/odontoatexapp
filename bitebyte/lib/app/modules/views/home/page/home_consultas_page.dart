@@ -91,15 +91,75 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                   );
                 },
               ),
+              SizedBox(height: size.height / 80),
+              Observer(
+                builder: (_) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      controller.showSelecteds
+                          ? Row(
+                              children: [
+                                Checkbox(
+                                    value: controller.isSelectedAll,
+                                    onChanged: (value) {
+                                      controller.isSelectedAll = value!;
+
+                                      controller.selecionaTodos(
+                                          controller.isSelectedAll);
+                                    }),
+                                const Text('Selecionar todos'),
+                                !controller.showSelecteds
+                                    ? const ElevatedButton(
+                                        onPressed: null, child: Text(''))
+                                    : Container(),
+                              ],
+                            )
+                          : Container(),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 150),
+                          child: ElevatedButton(
+                            onPressed: () => controller.setShowSelect(),
+                            child: !controller.showSelecteds
+                                ? const Text('SELECIONAR')
+                                : const Text('OK'),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return const Column(
+                    return Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(top: 30, left: 5, right: 5),
-                          child: CardConsultas(),
+                          padding:
+                              const EdgeInsets.only(top: 30, left: 5, right: 5),
+                          child: GestureDetector(
+                            onLongPress: () => controller.setShowSelect(),
+                            child: Observer(
+                              builder: (_) {
+                                return Row(
+                                  children: [
+                                    const Flexible(child: CardConsultas()),
+                                    controller.showSelecteds
+                                        ? Checkbox(
+                                            value: controller.selecteds[index],
+                                            onChanged: (value) {
+                                              controller.setSelectedIndex(
+                                                  value, index);
+                                            })
+                                        : Container(),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
                         ),
                       ],
                     );

@@ -1,6 +1,9 @@
+import 'package:bitebyte/app/modules/views/home/controller/home_controller.dart';
 import 'package:bitebyte/app/modules/views/home/widgets/expanded_items.dart';
 import 'package:bitebyte/app/modules/views/home/widgets/not_expanded_itens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CardConsultas extends StatefulWidget {
   const CardConsultas({super.key});
@@ -10,6 +13,7 @@ class CardConsultas extends StatefulWidget {
 }
 
 class _CardConsultasState extends State<CardConsultas> {
+  final controller = Modular.get<HomeControllerBase>();
   bool isExpanded = false;
   bool isFirstTap = true;
 
@@ -25,25 +29,32 @@ class _CardConsultasState extends State<CardConsultas> {
       },
       child: Stack(
         children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 450),
-            width: size.width,
-            height: isExpanded ? size.height / 2.2 : size.height / 5,
-            padding: const EdgeInsets.all(6.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: LinearGradient(
-                colors: [Colors.blue[200]!, Colors.blue[400]!],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              border: Border.all(
-                color: Colors.blue[700]!,
-                width: 2,
-              ),
-            ),
-            child:
-                !isExpanded ? const NotExpandedItems() : const ExpandedItems(),
+          Observer(
+            builder: (_) {
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 450),
+                width: !controller.showSelecteds
+                    ? size.width / 1.07
+                    : size.width / 1.30,
+                height: isExpanded ? size.height / 2.2 : size.height / 5,
+                padding: const EdgeInsets.all(6.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                    colors: [Colors.blue[200]!, Colors.blue[400]!],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  border: Border.all(
+                    color: Colors.blue[700]!,
+                    width: 2,
+                  ),
+                ),
+                child: !isExpanded
+                    ? const NotExpandedItems()
+                    : const ExpandedItems(),
+              );
+            },
           ),
           if (isExpanded)
             Positioned(

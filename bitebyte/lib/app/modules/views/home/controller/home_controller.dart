@@ -49,6 +49,16 @@ abstract class HomeControllerBase with Store {
   ];
 
   @observable
+  ObservableList selecteds =
+      ObservableList.of([false, false, false, false, false]);
+
+  @observable
+  bool isSelectedAll = false;
+
+  @observable
+  var showSelecteds = false;
+
+  @observable
   List<String> listFiltro = ObservableList.of([]);
 
   @action
@@ -95,4 +105,28 @@ abstract class HomeControllerBase with Store {
 
   @action
   void onTabTapped(int index) => selectedIndex = index;
+
+  @action
+  void setShowSelect() => showSelecteds = !showSelecteds;
+
+  @action
+  void setSelecteds(List<String> value) => selecteds = ObservableList.of(value);
+
+  @action
+  void setIsSelectedAll() => isSelectedAll = !isSelectedAll;
+
+  void setSelectedIndex(var value, int index) {
+    if (selecteds.isNotEmpty) {
+      selecteds[index] = value;
+    }
+  }
+
+  @action
+  void selecionaTodos(var value) {
+    if (selecteds.isNotEmpty) {
+      for (var i = 0; i < selecteds.length; i++) {
+        selecteds[i] = value;
+      }
+    }
+  }
 }
