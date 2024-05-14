@@ -42,6 +42,9 @@ abstract class HomeControllerBase with Store {
   @observable
   int selectedIndex = 0;
 
+  @computed
+  bool get isAllSelected => selecteds.every((element) => element == true);
+
   @observable
   List<Widget> widgetOptions = <Widget>[
     const HomeConsultasPage(),
@@ -119,9 +122,11 @@ abstract class HomeControllerBase with Store {
     if (selecteds.isNotEmpty) {
       selecteds[index] = value;
       if (!value) isSelectedAll = false;
-      // if (selecteds.every((element) => element == true)) {
-      //   isSelectedAll = true;
-      // }
+      if (isAllSelected) {
+        isSelectedAll = true;
+      } else {
+        isSelectedAll = false;
+      }
     }
   }
 

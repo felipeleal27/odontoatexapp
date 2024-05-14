@@ -36,7 +36,7 @@ class _CardConsultasState extends State<CardConsultas> {
                 width: !controller.showSelecteds
                     ? size.width / 1.07
                     : size.width / 1.30,
-                height: isExpanded ? size.height / 2.2 : size.height / 5,
+                // height: isExpanded ? size.height / 2.2 : size.height / 5,
                 padding: const EdgeInsets.all(6.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
