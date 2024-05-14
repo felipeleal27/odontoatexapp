@@ -6,6 +6,7 @@ import 'package:bitebyte/app/modules/views/home/widgets/card_consultas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 
 class HomeConsultasPage extends StatefulWidget {
   const HomeConsultasPage({super.key});
@@ -95,10 +96,13 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
               Observer(
                 builder: (_) {
                   return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: controller.showSelecteds
+                        ? MainAxisAlignment.spaceBetween
+                        : MainAxisAlignment.center,
                     children: [
                       controller.showSelecteds
                           ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Checkbox(
                                     value: controller.isSelectedAll,
@@ -116,20 +120,13 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                               ],
                             )
                           : Container(),
-                      Expanded(
-                        child: Padding(
-                          padding: controller.showSelecteds
-                              ? const EdgeInsets.only(left: 150)
-                              : const EdgeInsets.all(8),
-                          child: AnimatedContainer(
-                            duration: const Duration(seconds: 1),
-                            child: ElevatedButton(
-                              onPressed: () => controller.setShowSelect(),
-                              child: !controller.showSelecteds
-                                  ? const Text('SELECIONAR')
-                                  : const Text('OK'),
-                            ),
-                          ),
+                      AnimatedContainer(
+                        duration: const Duration(seconds: 1),
+                        child: ElevatedButton(
+                          onPressed: () => controller.setShowSelect(),
+                          child: !controller.showSelecteds
+                              ? const Text('SELECIONAR')
+                              : const Text('OK'),
                         ),
                       ),
                     ],
@@ -197,7 +194,7 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                       isSelected: controller.isDataChecked,
                       onChanged: (value) {
                         controller.setIsDataChecked(value);
-                        showDatePickerDialog(context);
+                        if (value) showDatePickerDialog(context);
                       },
                     ),
                     DefaultCheckButton(
@@ -260,17 +257,27 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
-                        onPressed: () {
-                          controller.dataInicial = openCalendar(context);
+                        onPressed: () async {
+                          controller.dataInicial = await openCalendar(context);
+                          setState(() {});
                         },
                         child: const Text('Botão 1'),
                       ),
-                      Text('Data Selecionada: ${controller.dataFinal}'),
+                      ElevatedButton(
+                        onPressed: () async {
+                          controller.dataFinal = await openCalendar(context);
+                          setState(() {});
+                        },
+                        child: const Text('Botão 2'),
+                      ),
                     ],
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Botão 2'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(controller.dataInicial),
+                      Text(controller.dataFinal)
+                    ],
                   ),
                 ],
               );
@@ -281,15 +288,17 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
     );
   }
 
-  String openCalendar(BuildContext context) {
-    showDatePicker(
+  Future<String> openCalendar(BuildContext context) async {
+    await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      helpText: 'Selecione data inicio',
+      helpText: 'Selecione data',
     ).then((selectedDate) {
-      return selectedDate;
+      var date = DateFormat('dd/MM/yyyy').format(selectedDate!);
+      print(date);
+      return date;
     });
     return '';
   }

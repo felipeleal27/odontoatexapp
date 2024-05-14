@@ -28,7 +28,7 @@ abstract class HomeControllerBase with Store {
   bool isProcedimentoChecked = false;
 
   @observable
-  String dataInicial = '25/04/2024';
+  late Future<String> dataInicial;
 
   @observable
   String dataFinal = '06/05/2024';

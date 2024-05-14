@@ -9,6 +9,13 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HomeController on HomeControllerBase, Store {
+  Computed<bool>? _$isAllSelectedComputed;
+
+  @override
+  bool get isAllSelected =>
+      (_$isAllSelectedComputed ??= Computed<bool>(() => super.isAllSelected,
+              name: 'HomeControllerBase.isAllSelected'))
+          .value;
   Computed<bool>? _$isCheckedAllComputed;
 
   @override
@@ -102,15 +109,19 @@ mixin _$HomeController on HomeControllerBase, Store {
       Atom(name: 'HomeControllerBase.dataInicial', context: context);
 
   @override
-  String get dataInicial {
+  Future<String> get dataInicial {
     _$dataInicialAtom.reportRead();
     return super.dataInicial;
   }
 
+  bool _dataInicialIsInitialized = false;
+
   @override
-  set dataInicial(String value) {
-    _$dataInicialAtom.reportWrite(value, super.dataInicial, () {
+  set dataInicial(Future<String> value) {
+    _$dataInicialAtom.reportWrite(
+        value, _dataInicialIsInitialized ? super.dataInicial : null, () {
       super.dataInicial = value;
+      _dataInicialIsInitialized = true;
     });
   }
 
@@ -411,6 +422,7 @@ selecteds: ${selecteds},
 isSelectedAll: ${isSelectedAll},
 showSelecteds: ${showSelecteds},
 listFiltro: ${listFiltro},
+isAllSelected: ${isAllSelected},
 isCheckedAll: ${isCheckedAll}
     ''';
   }
