@@ -31,7 +31,7 @@ abstract class HomeControllerBase with Store {
   late Future<String> dataInicial;
 
   @observable
-  String dataFinal = '06/05/2024';
+  late Future<String> dataFinal;
 
   @observable
   String professor = 'Carlos';

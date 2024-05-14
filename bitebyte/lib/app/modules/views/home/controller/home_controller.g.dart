@@ -129,15 +129,19 @@ mixin _$HomeController on HomeControllerBase, Store {
       Atom(name: 'HomeControllerBase.dataFinal', context: context);
 
   @override
-  String get dataFinal {
+  Future<String> get dataFinal {
     _$dataFinalAtom.reportRead();
     return super.dataFinal;
   }
 
+  bool _dataFinalIsInitialized = false;
+
   @override
-  set dataFinal(String value) {
-    _$dataFinalAtom.reportWrite(value, super.dataFinal, () {
+  set dataFinal(Future<String> value) {
+    _$dataFinalAtom.reportWrite(
+        value, _dataFinalIsInitialized ? super.dataFinal : null, () {
       super.dataFinal = value;
+      _dataFinalIsInitialized = true;
     });
   }
 

@@ -275,8 +275,34 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(controller.dataInicial),
-                      Text(controller.dataFinal)
+                      FutureBuilder<String>(
+                        future: controller.dataInicial,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<String> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return Text(snapshot.data ?? 'Data não definida');
+                          }
+                        },
+                      ),
+                      FutureBuilder<String>(
+                        future: controller.dataFinal,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<String> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return Text(snapshot.data ?? 'Data não definida');
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ],
