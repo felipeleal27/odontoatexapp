@@ -109,21 +109,26 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                                           controller.isSelectedAll);
                                     }),
                                 const Text('Selecionar todos'),
-                                !controller.showSelecteds
-                                    ? const ElevatedButton(
-                                        onPressed: null, child: Text(''))
-                                    : Container(),
+                                // !controller.showSelecteds
+                                //     ? const ElevatedButton(
+                                //         onPressed: null, child: Text(''))
+                                //     : Container(),
                               ],
                             )
                           : Container(),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 150),
-                          child: ElevatedButton(
-                            onPressed: () => controller.setShowSelect(),
-                            child: !controller.showSelecteds
-                                ? const Text('SELECIONAR')
-                                : const Text('OK'),
+                          padding: controller.showSelecteds
+                              ? const EdgeInsets.only(left: 150)
+                              : const EdgeInsets.all(8),
+                          child: AnimatedContainer(
+                            duration: const Duration(seconds: 1),
+                            child: ElevatedButton(
+                              onPressed: () => controller.setShowSelect(),
+                              child: !controller.showSelecteds
+                                  ? const Text('SELECIONAR')
+                                  : const Text('OK'),
+                            ),
                           ),
                         ),
                       ),

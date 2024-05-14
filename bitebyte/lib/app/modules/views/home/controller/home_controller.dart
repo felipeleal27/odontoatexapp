@@ -59,6 +59,9 @@ abstract class HomeControllerBase with Store {
   var showSelecteds = false;
 
   @observable
+  bool selectedAll = false;
+
+  @observable
   List<String> listFiltro = ObservableList.of([]);
 
   @action
@@ -118,6 +121,10 @@ abstract class HomeControllerBase with Store {
   void setSelectedIndex(var value, int index) {
     if (selecteds.isNotEmpty) {
       selecteds[index] = value;
+
+      if (!value) {
+        selectedAll = false;
+      }
     }
   }
 
@@ -128,5 +135,6 @@ abstract class HomeControllerBase with Store {
         selecteds[i] = value;
       }
     }
+    selectedAll = true;
   }
 }
