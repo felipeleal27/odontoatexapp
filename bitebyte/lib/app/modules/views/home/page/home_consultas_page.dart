@@ -247,85 +247,67 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Selecione uma data'),
-          content: Observer(
-            builder: (_) {
-              return Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () async {
-                          controller.dataInicial = await openCalendar(context);
-                          setState(() {});
-                        },
-                        child: const Text('Botão 1'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          controller.dataFinal = await openCalendar(context);
-                          setState(() {});
-                        },
-                        child: const Text('Botão 2'),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      FutureBuilder<String>(
-                        future: controller.dataInicial,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<String> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return Text(snapshot.data ?? 'Data não definida');
-                          }
-                        },
-                      ),
-                      FutureBuilder<String>(
-                        future: controller.dataFinal,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<String> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return Text(snapshot.data ?? 'Data não definida');
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              );
-            },
-          ),
+        return StatefulBuilder(
+          // Add this
+          builder: (BuildContext context, StateSetter setState) {
+            // And this
+            return AlertDialog(
+              title: const Text('Selecione uma data'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Wrap(
+                      alignment: WrapAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            var result = await openCalendar(context);
+                            controller.dataInicial = result;
+                            setState(() {}); // And this
+                          },
+                          child: const Text('Botão 1'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            var result = await openCalendar(context);
+                            controller.dataFinal = result;
+                            setState(() {}); // And this
+                          },
+                          child: const Text('Botão 2'),
+                        ),
+                      ],
+                    ),
+                    Wrap(
+                      alignment: WrapAlignment.spaceEvenly,
+                      children: [
+                        Text(controller.dataInicial),
+                        Text(controller.dataFinal),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         );
       },
     );
   }
 
   Future<String> openCalendar(BuildContext context) async {
-    await showDatePicker(
+    DateTime? selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
       helpText: 'Selecione data',
-    ).then((selectedDate) {
-      var date = DateFormat('dd/MM/yyyy').format(selectedDate!);
-      print(date);
+    );
+
+    if (selectedDate != null) {
+      var date = DateFormat('dd/MM/yyyy').format(selectedDate);
       return date;
-    });
+    }
+
     return '';
   }
 

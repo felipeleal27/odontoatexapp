@@ -28,10 +28,10 @@ abstract class HomeControllerBase with Store {
   bool isProcedimentoChecked = false;
 
   @observable
-  late Future<String> dataInicial;
+  String dataInicial = '';
 
   @observable
-  late Future<String> dataFinal;
+  String dataFinal = '';
 
   @observable
   String professor = 'Carlos';
