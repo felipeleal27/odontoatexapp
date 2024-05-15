@@ -261,13 +261,12 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                           children: [
                             ElevatedButton(
                               onPressed: () async {
-                                var result = await openCalendar(context);
-                                controller.dataInicial = result;
+                                controller.dataIn = await openCalendar(context);
                                 setState(() {});
                               },
                               child: const Text('Data Inicial'),
                             ),
-                            Text(controller.dataInicial,
+                            Text(controller.dataIn ?? '',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold)),
                           ],
@@ -277,17 +276,34 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                           children: [
                             ElevatedButton(
                               onPressed: () async {
-                                var result = await openCalendar(context);
-                                controller.dataFinal = result;
+                                controller.dataFi = await openCalendar(context);
                                 setState(() {});
                               },
                               child: const Text('Data Final'),
                             ),
-                            Text(controller.dataFinal,
+                            Text(controller.dataFi ?? '',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold)),
                           ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  controller.dataInicial = controller.dataIn;
+                                  controller.dataFinal = controller.dataFi;
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Ok')),
+                            ElevatedButton(
+                                onPressed: () {
+                                  controller.isDataChecked = false;
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Cancelar')),
+                          ],
+                        )
                       ],
                     ),
                   ],

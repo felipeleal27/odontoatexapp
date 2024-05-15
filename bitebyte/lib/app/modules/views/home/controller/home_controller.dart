@@ -33,6 +33,10 @@ abstract class HomeControllerBase with Store {
   @observable
   String dataFinal = '';
 
+  var dataIn;
+
+  var dataFi;
+
   @observable
   String professor = 'Carlos';
 
