@@ -248,40 +248,46 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
       context: context,
       builder: (context) {
         return StatefulBuilder(
-          // Add this
           builder: (BuildContext context, StateSetter setState) {
-            // And this
             return AlertDialog(
               title: const Text('Selecione uma data'),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
-                    Wrap(
-                      alignment: WrapAlignment.spaceEvenly,
+                    Column(
                       children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            var result = await openCalendar(context);
-                            controller.dataInicial = result;
-                            setState(() {}); // And this
-                          },
-                          child: const Text('Botão 1'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                var result = await openCalendar(context);
+                                controller.dataInicial = result;
+                                setState(() {});
+                              },
+                              child: const Text('Data Inicial'),
+                            ),
+                            Text(controller.dataInicial,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
+                          ],
                         ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            var result = await openCalendar(context);
-                            controller.dataFinal = result;
-                            setState(() {}); // And this
-                          },
-                          child: const Text('Botão 2'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                var result = await openCalendar(context);
+                                controller.dataFinal = result;
+                                setState(() {});
+                              },
+                              child: const Text('Data Final'),
+                            ),
+                            Text(controller.dataFinal,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
+                          ],
                         ),
-                      ],
-                    ),
-                    Wrap(
-                      alignment: WrapAlignment.spaceEvenly,
-                      children: [
-                        Text(controller.dataInicial),
-                        Text(controller.dataFinal),
                       ],
                     ),
                   ],
