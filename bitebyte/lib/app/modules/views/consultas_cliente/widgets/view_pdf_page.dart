@@ -85,7 +85,7 @@ class _ViewPdfPageState extends State<ViewPdfPage> {
                 },
               ),
               Text(
-                  '${_currentPage + 1}'), // Adicione 1 ao exibir o número da página
+                  '${_currentPage + 1} / $_totalPages'), // Adicione 1 ao exibir o número da página
               IconButton(
                 icon: const Icon(Icons.chevron_right),
                 onPressed: () {

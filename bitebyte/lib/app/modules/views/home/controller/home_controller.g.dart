@@ -185,6 +185,22 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$finalDatePickerAtom =
+      Atom(name: 'HomeControllerBase.finalDatePicker', context: context);
+
+  @override
+  int get finalDatePicker {
+    _$finalDatePickerAtom.reportRead();
+    return super.finalDatePicker;
+  }
+
+  @override
+  set finalDatePicker(int value) {
+    _$finalDatePickerAtom.reportWrite(value, super.finalDatePicker, () {
+      super.finalDatePicker = value;
+    });
+  }
+
   late final _$widgetOptionsAtom =
       Atom(name: 'HomeControllerBase.widgetOptions', context: context);
 
@@ -346,6 +362,17 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
+  void setProcedimento(String value) {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.setProcedimento');
+    try {
+      return super.setProcedimento(value);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void onTabTapped(int index) {
     final _$actionInfo = _$HomeControllerBaseActionController.startAction(
         name: 'HomeControllerBase.onTabTapped');
@@ -413,6 +440,7 @@ dataFinal: ${dataFinal},
 professor: ${professor},
 procedimento: ${procedimento},
 selectedIndex: ${selectedIndex},
+finalDatePicker: ${finalDatePicker},
 widgetOptions: ${widgetOptions},
 selecteds: ${selecteds},
 isSelectedAll: ${isSelectedAll},

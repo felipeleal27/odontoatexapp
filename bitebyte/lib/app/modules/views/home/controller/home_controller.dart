@@ -33,9 +33,9 @@ abstract class HomeControllerBase with Store {
   @observable
   String dataFinal = '';
 
-  var dataIn;
+  dynamic dataIn;
 
-  var dataFi;
+  dynamic dataFi;
 
   @observable
   String professor = 'Carlos';
@@ -45,6 +45,9 @@ abstract class HomeControllerBase with Store {
 
   @observable
   int selectedIndex = 0;
+
+  @observable
+  var finalDatePicker = (DateTime.now().year).toInt();
 
   @computed
   bool get isAllSelected => selecteds.every((element) => element == true);
@@ -109,6 +112,9 @@ abstract class HomeControllerBase with Store {
 
   @action
   void setProfessor(String value) => professor = value;
+
+  @action
+  void setProcedimento(String value) => procedimento = value;
 
   @action
   void onTabTapped(int index) => selectedIndex = index;
