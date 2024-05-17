@@ -88,35 +88,27 @@ class _HomePageState extends State<HomePage> {
           //     );
           //   },
           // ),
-          floatingActionButton: controller.showSelecteds &&
-                  controller.selecteds.contains(true)
-              ? SpeedDial(
-                  animatedIcon: AnimatedIcons.menu_close,
-                  overlayColor: Colors.black,
-                  overlayOpacity: 0.5,
-                  spaceBetweenChildren: 20,
-                  buttonSize: const Size(65, 65),
-                  children: [
-                    //Primeira opção
-                    SpeedDialChild(
-                      child: const Icon(Icons.picture_as_pdf),
-                      backgroundColor: Colors.blue[300],
-                      label: "GERAR PDF's",
-                      onTap: () async {
-                        await controllerConsultas.viewPdf(context, '20', '');
-                        setState(() {
-                          for (var i = 0;
-                              i < controller.selecteds.length;
-                              i++) {
-                            controller.selecteds[i] = false;
-                          }
-                          controller.setShowSelect();
-                        });
-                      },
-                    ),
-                  ],
-                )
-              : null,
+          floatingActionButton:
+              controller.showSelecteds && controller.selecteds.contains(true)
+                  ? SpeedDial(
+                      animatedIcon: AnimatedIcons.menu_close,
+                      overlayColor: Colors.black,
+                      overlayOpacity: 0.5,
+                      spaceBetweenChildren: 20,
+                      buttonSize: const Size(65, 65),
+                      children: [
+                        //Primeira opção
+                        SpeedDialChild(
+                          child: const Icon(Icons.picture_as_pdf),
+                          backgroundColor: Colors.blue[300],
+                          label: "GERAR PDF's",
+                          onTap: () async {
+                            controllerConsultas.viewPdf(context, '20', '');
+                          },
+                        ),
+                      ],
+                    )
+                  : null,
         );
       },
     );
