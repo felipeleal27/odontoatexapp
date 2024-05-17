@@ -255,6 +255,7 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                 child: ListBody(
                   children: <Widget>[
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -286,9 +287,16 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                                     fontWeight: FontWeight.bold)),
                           ],
                         ),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  controller.isDataChecked = false;
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Cancelar')),
                             ElevatedButton(
                                 onPressed: () {
                                   controller.dataInicial = controller.dataIn;
@@ -296,12 +304,6 @@ class _HomeConsultasPageState extends State<HomeConsultasPage> {
                                   Navigator.pop(context);
                                 },
                                 child: const Text('Ok')),
-                            ElevatedButton(
-                                onPressed: () {
-                                  controller.isDataChecked = false;
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('Cancelar')),
                           ],
                         )
                       ],
