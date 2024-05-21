@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class FormLoginPage extends StatefulWidget {
-  const FormLoginPage({Key? key}) : super(key: key);
+  const FormLoginPage({super.key});
 
   @override
   State<FormLoginPage> createState() => _FormLoginPageState();

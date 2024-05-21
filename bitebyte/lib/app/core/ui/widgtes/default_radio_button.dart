@@ -9,13 +9,13 @@ class DefaultRadioButton extends StatelessWidget {
   final Function onChanged;
 
   const DefaultRadioButton({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     required this.groupValue,
     required this.onChanged,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

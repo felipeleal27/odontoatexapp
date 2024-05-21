@@ -14,7 +14,7 @@ class DefaultTextFormField extends StatelessWidget {
   final Function()? clickButton;
 
   const DefaultTextFormField({
-    Key? key,
+    super.key,
     this.hintText,
     required this.labelText,
     this.controller,
@@ -26,7 +26,7 @@ class DefaultTextFormField extends StatelessWidget {
     this.suffixIconButton,
     this.onChanged,
     this.clickButton,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

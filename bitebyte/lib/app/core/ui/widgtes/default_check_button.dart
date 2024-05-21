@@ -9,13 +9,12 @@ class DefaultCheckButton extends StatelessWidget {
   final Function onChanged;
 
   const DefaultCheckButton(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.value,
       required this.isSelected,
       required this.onChanged,
-      required this.icon})
-      : super(key: key);
+      required this.icon});
 
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,8 @@ class CoreModule extends Module {
     Bind.factory<RestClient>((i) => DioRestClient(), export: true),
     Bind.lazySingleton<LocalStorage>((i) => SharedPreferencesLocalStorageImpl(),
         export: true),
-    Bind.singleton<LoginRepository>((i) => LoginRepositoryImpl(), export: true),
+    Bind.singleton<LoginRepository>(
+        (i) => LoginRepositoryImpl(localStorage: i(), restClient: i()),
+        export: true),
   ];
 }

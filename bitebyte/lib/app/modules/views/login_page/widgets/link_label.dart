@@ -7,12 +7,12 @@ class LinkLabel extends StatelessWidget {
   final double? fontSize;
 
   const LinkLabel({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
     this.textColor,
     this.fontSize,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

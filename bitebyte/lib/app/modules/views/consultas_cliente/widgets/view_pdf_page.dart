@@ -14,8 +14,7 @@ class ViewPdfPage extends StatefulWidget {
   final String path;
   final String date;
 
-  const ViewPdfPage({Key? key, required this.path, required this.date})
-      : super(key: key);
+  const ViewPdfPage({super.key, required this.path, required this.date});
 
   @override
   State<ViewPdfPage> createState() => _ViewPdfPageState();

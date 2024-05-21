@@ -33,19 +33,23 @@ class SharedPreferencesLocalStorageImpl implements LocalStorage {
     final sharedPreferences = await _instace;
 
     switch (V) {
-      case String:
+      // ignore: pattern_never_matches_value_type
+      case String _:
         sharedPreferences.setString(key, value as String);
         break;
-      case int:
+      // ignore: pattern_never_matches_value_type
+      case int _:
         sharedPreferences.setInt(key, value as int);
         break;
-      case double:
+      // ignore: pattern_never_matches_value_type
+      case double _:
         sharedPreferences.setDouble(key, value as double);
         break;
-      case bool:
+      // ignore: pattern_never_matches_value_type
+      case bool _:
         sharedPreferences.setBool(key, value as bool);
         break;
-      case List:
+      case List _:
         sharedPreferences.setStringList(key, value as List<String>);
         break;
       default:
